@@ -78,7 +78,5 @@ class Testing extends CI_Controller {
 
 	}
 
-	public function php_info(){
-        echo phpinfo();
-    }
+
 }

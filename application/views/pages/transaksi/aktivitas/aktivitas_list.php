@@ -458,7 +458,7 @@
                                             <select data-live-search-placeholder="Pilih Waktu Pengerjaan Aktivitas" class="form-control" name="<?php echo AktivitasModel::t_pengerjaan_aktivitas;?>" data-show-subtext="true" data-live-search="true" >
                                                 <option value=""> -- Pilih Waktu Pengerjaan Aktivitas-- </option>
                                                 <option value="0">Jam Kerja</option>
-                                                <option value="1">Lembur</option>
+                                                <option value="1">Luar Jam Kerja / Lembur</option>
                                             </select>
                                             <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_pengerjaan_aktivitas;?>"></div>
                                         </div>
@@ -494,11 +494,6 @@
                             </div>
                         </form>
                     </fieldset>
-
-                    <object width="400" height="500" type="application/pdf" data="http://localhost/project/lapak/assets/uploads/file/4_Komponen-IMK.pdf">
-                        <p>Insert your error message here, if the PDF cannot be displayed.</p>
-                    </object>
-
                     <!-- /.row -->
                 </div>
             </div>

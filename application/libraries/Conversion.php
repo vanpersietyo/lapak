@@ -109,6 +109,51 @@ class Conversion {
         return $hari." ".$bln." ".$tahun;
     }
 
+    public static function hariIndo($date = null){
+//        if ($date){
+//            $hari = self::convert_date($date.'D');
+//        }else{
+            $hari = date('D');
+//        }
+
+        switch($hari){
+            case 'Sun':
+                $hari_ini = "Minggu";
+                break;
+
+            case 'Mon':
+                $hari_ini = "Senin";
+                break;
+
+            case 'Tue':
+                $hari_ini = "Selasa";
+                break;
+
+            case 'Wed':
+                $hari_ini = "Rabu";
+                break;
+
+            case 'Thu':
+                $hari_ini = "Kamis";
+                break;
+
+            case 'Fri':
+                $hari_ini = "Jumat";
+                break;
+
+            case 'Sat':
+                $hari_ini = "Sabtu";
+                break;
+
+            default:
+                $hari_ini = "Tidak di ketahui";
+                break;
+        }
+
+        return $hari_ini;
+
+    }
+
     /**
      * @param $kode
      * @param int $jenis
@@ -120,7 +165,7 @@ class Conversion {
         else
         {$bulan= array('','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nop','Des');}
 
-        return $bulan[intval($kode)];
+        return $bulan[(int)$kode];
     }
 
     /**
@@ -129,12 +174,10 @@ class Conversion {
      * @return false|string
      */
     public static function convert_date($tgl, $format = 'd-m-Y H:i'){
-        if($tgl == '0000-00-00 00:00:00'){
+        if($tgl === '0000-00-00 00:00:00'){
             return '-';
-        }else{
-            $date = date_create($tgl);
-            return date_format($date,$format);
         }
+        return date_format(date_create($tgl),$format);
     }
 
     /**

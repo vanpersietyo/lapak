@@ -18,6 +18,7 @@ class AktivitasModel extends CI_Model
     const v_nama_aktivitas = "nama_aktivitas";
     const v_keterangan_aktivitas = "keterangan_aktivitas";
     const v_pengerjaan_aktivitas = "pengerjaan_aktivitas";
+    const v_keterangan_pengerjaan_aktivitas = "keterangan_pengerjaan_aktivitas";
     const v_status_aktivitas = "status_aktivitas";
     const v_file = "file";
     const v_keterangan_status_aktivitas = "keterangan_status_aktivitas";
@@ -75,6 +76,7 @@ class AktivitasModel extends CI_Model
     public $nama_aktivitas;
     public $keterangan_aktivitas;
     public $pengerjaan_aktivitas;
+    public $keterangan_pengerjaan_aktivitas;
     public $status_aktivitas;
     public $file;
     public $keterangan_status_aktivitas;
@@ -111,6 +113,22 @@ class AktivitasModel extends CI_Model
     public $keterangan_parent_jabatan;
     public $nama_jabatan;
     public $keterangan_jabatan;
+
+    //for column file
+    public $file_name;
+    public $file_type;
+    public $file_path;
+    public $full_path;
+    public $raw_name;
+    public $orig_name;
+    public $client_name;
+    public $file_ext;
+    public $file_size;
+    public $is_image;
+    public $image_width;
+    public $image_height;
+    public $image_type;
+    public $image_size_str;
 
     var $table = 'aktivitas';
     var $table_data = 'v_aktivitas';
