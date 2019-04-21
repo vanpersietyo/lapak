@@ -35,18 +35,18 @@
 
             <div class="box-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered sourced-data" id="mytable">
+                    <table class="table table-striped table-bordered sourced-data" id="mytable" width="100%">
                         <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kode Aktivitas</th>
-                            <th>Nama Aktivitas</th>
-                            <th>Tanggal Aktivitas</th>
-                            <th>Pelaksana</th>
-                            <th>Status</th>
-                            <th>Keterangan</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Aktivitas</th>
+                                <th>Nama Aktivitas</th>
+                                <th>Tanggal Aktivitas</th>
+                                <th>Pelaksana</th>
+                                <th>Status</th>
+                                <th>Keterangan</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
                     </table>
                 </div>
@@ -262,45 +262,71 @@
         })
     }
 
+
     //function untuk delete data
     function approve(id,kode,name)
     {
         swal({
             title: 'Setujui Aktivitas?',
-            html: '<h5>Yakin akan Menyetujui Aktivitas <b>'+kode+' - '+name+'</b>?</h5>',
+            html: '<h5>Masukkan Pesan Untuk Menyetujui Aktivitas <b>'+kode+' - '+name+'</b>?</h5>',
             type: 'success',
+            input: 'text',
             showCancelButton: true,
             allowOutsideClick: false,
-            confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            cancelButtonText: 'Tidak',
-            confirmButtonText: 'Ya'
+            confirmButtonColor: '#3085d6',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Setujui',
         }).then((result) => {
             if (result.value) {
+                let alasan = result.value;
+                $.ajax({
+                    url     : "<?php echo site_url('transaksi/aktivitas/ajax_approve')?>/"+id,
+                    type: "POST",
+                    data: "alasan="+alasan,
+                    cache:false,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.status) {
+                            reload();
+                            swal({
+                                title: "Berhasil !",
+                                html: '<h5>' + data.messages + '</h5>',
+                                type: 'success'
+                            });
+                        } else {
+                            swal("Gagal!",data.messages, "error");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        swal("Maaf", "Data Gagal Menyetujui. Hubungi Admin!", "warning");
+                    }
+                });
+            }else if (result.dismiss === swal.DismissReason.cancel)
+            {}
+            else{
                 $.ajax({
                     url     : "<?php echo site_url('transaksi/aktivitas/ajax_approve')?>/"+id,
                     type    : "POST",
                     dataType: "JSON",
-                    success : function(data)
-                    {
-                        if(data.status){
+                    success: function (data) {
+                        if (data.status) {
                             reload();
                             swal({
-                                title   : "Berhasil !",
-                                html    : '<h5>' + data.messages + '</h5>',
-                                type    : 'success'
+                                title: "Berhasil !",
+                                html: '<h5>' + data.messages + '</h5>',
+                                type: 'success'
                             });
-                        }else{
-                            swal("Gagal!", data.messages, "error");
+                        } else {
+                            swal("Gagal!",data.messages, "error");
                         }
                     },
-                    error: function (jqXHR, textStatus, errorThrown)
-                    {
-                        swal("Ya Ampun Maaf !", "Data Gagal Disetujui !", "warning");
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        swal("Maaf", "Data Gagal Menyetujui. Hubungi Admin!", "warning");
                     }
                 });
             }
-        })
+        });
     }
 
     //function untuk delete data

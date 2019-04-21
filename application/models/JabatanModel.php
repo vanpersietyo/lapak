@@ -110,24 +110,4 @@ class JabatanModel extends CI_Model
 		$this->db->delete($this->table);
 	}
 
-    function generate_kode_user()
-    {
-        $this->db->select_max('RIGHT('.$this::t_kode_user.',3)', 'kd_max');//select
-        $query = $this->db->get($this->table);
-        $kd = "";
-        if($query->num_rows()>0)
-        {
-            foreach($query->result() as $k)
-            {
-                $tmp = ((int)$k->kd_max)+1;
-                $kd = sprintf("%03s", $tmp);
-            }
-        }
-        else
-        {
-            $kd = "001";
-        }
-        return 'USR'.$kd;
-    }
-
 }

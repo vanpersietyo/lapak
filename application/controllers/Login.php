@@ -41,14 +41,16 @@ class Login extends CI_Controller {
         if($result->num_rows()==1){
             $user = $result->row();
             /** @var UserModel $user */
-            $session = array(
-             'id_user'   => $user->id_user,
-             'username'  => $user->username,
-             'nama'      => $user->nama,
-             'level'     => $user->id_level,
-             'nama_level'=> $user->nama_level,
-             'logged_in' => TRUE
-            );
+            $session = [
+                'id_user'      => $user->id_user,
+                'username'     => $user->username,
+                'nama'         => $user->nama,
+                'level'        => $user->id_level,
+                'nama_level'   => $user->nama_level,
+                'jabatan'      => $user->id_jabatan,
+                'nama_jabatan' => $user->nama_jabatan,
+                'logged_in'    => TRUE
+            ];
             $this->session->set_userdata($session);
             $this->load->view('pages/login/notif_login',['notif' =>'login_sukses']);
         } else {

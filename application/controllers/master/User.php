@@ -248,15 +248,6 @@ class User extends CI_Controller {
                 UserModel::t_deleted    => 0
             ];
             $user   = $this->UserModel->find_view($where);
-
-            if (!$input[UserModel::t_foto]) {
-                $error                  = $this->upload->display_errors('','');//'Username Sudah Digunakan!';
-                $template               = '<span class="help-block">'.$error.'</span>';
-                $data['inputerror'][]   = UserModel::t_foto;
-                $data['notiferror'][]   = $template;
-                $data['error_string'][] = $error;
-                $data['status']         = FALSE;
-            }
         }
 
         //set messages validation for every rule
@@ -317,6 +308,18 @@ class User extends CI_Controller {
                 $data['status']         = FALSE;
             }
         }
+
+        //vaidasi upload foto
+        if($this->input->post(UserModel::t_foto)){
+
+            if (!$input[UserModel::t_foto]) {
+                $error                  = $this->upload->display_errors('<span class="help-block">','</span>');//'Username Sudah Digunakan!';
+                $data['inputerror'][]   = UserModel::t_foto;
+                $data['notiferror'][]   = $error;
+                $data['status']         = FALSE;
+            }
+        }
+
 
         if(!$data['status'])
         {

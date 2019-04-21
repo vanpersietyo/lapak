@@ -101,6 +101,7 @@
  * @property AktivitasModel $AktivitasModel
  * @property JabatanModel   $JabatanModel
  * @property LevelModel     $LevelModel
+ * @property PersetujuanModel     $PersetujuanModel
  *
  */
 class CI_Controller

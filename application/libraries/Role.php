@@ -63,6 +63,22 @@ class Role
         }
     }
 
+    public function jabatan()
+    {   if($this->CI->session->userdata('jabatan')){
+            return $this->CI->session->userdata('jabatan');
+        }else{
+            return false;
+        }
+    }
+
+    public function nama_jabatan()
+    {   if($this->CI->session->userdata('nama_jabatan')){
+            return $this->CI->session->userdata('nama_jabatan');
+        }else{
+            return null;
+        }
+    }
+
     public function show_session($name)
     {
         return $this->CI->session->userdata($name);
