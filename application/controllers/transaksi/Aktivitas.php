@@ -65,6 +65,7 @@ class Aktivitas extends CI_Controller {
                 if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>                
                         <button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
                         <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
                         ';
@@ -83,12 +84,10 @@ class Aktivitas extends CI_Controller {
                         $button = '
                         <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
                         <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
-                        <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
                         ';
                     }else{
-                        $button = '
-                        <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
-                        ';
+                        $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                     }
                 }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
@@ -115,19 +114,19 @@ class Aktivitas extends CI_Controller {
                     $button = '
                         <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
                         <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
-                        <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
                         <button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
                         <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
                         ';
                 }elseif($d->status_aktivitas==1){
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
 				';
                 }else{
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
 				';
                 }
             }
@@ -169,7 +168,7 @@ class Aktivitas extends CI_Controller {
         if($upload = $this->upload()){
             $file = json_encode($upload);// $upload['file_name'];
         }else{
-            $file = $upload;
+            $file = '';
         };
 
         $input = [
@@ -182,8 +181,10 @@ class Aktivitas extends CI_Controller {
             AktivitasModel::t_status_aktivitas      => 0, //default = 0 => pengajuan, belum di setujui
             AktivitasModel::t_deleted               => 0, //default = 0 => aktif, belum di delete,
             AktivitasModel::t_file                  => $file
+
         ];
         $this->_validate($input);
+
         $this->AktivitasModel->save($input);
         echo json_encode([
             "status"    => TRUE,
@@ -203,7 +204,11 @@ class Aktivitas extends CI_Controller {
             AktivitasModel::t_tgl_aktivitas         => $this->input->post(AktivitasModel::t_tgl_aktivitas),
         ];
         $this->_validate($data,true);
-        $this->AktivitasModel->update($this->input->post(AktivitasModel::t_id_user), $data);
+        if($upload = $this->upload()){
+            $file = json_encode($upload);// $upload['file_name'];
+            $data = [AktivitasModel::t_file => $file];
+        };
+        $this->AktivitasModel->update($this->input->post(AktivitasModel::t_id_aktivitas), $data);
         echo json_encode([
             "status" => TRUE,
             "messages"  => 'Karyawan <b>'.$this->input->post(AktivitasModel::t_kode_aktivitas).'</b> Berhasil Diubah!'
@@ -357,14 +362,12 @@ class Aktivitas extends CI_Controller {
         }
 
         //vaidasi upload foto
-        if($this->input->post(AktivitasModel::t_file)){
-
-            if (!$input[AktivitasModel::t_file]) {
-                $error                  = $this->upload->display_errors('<span class="help-block">','</span>');//'Username Sudah Digunakan!';
-                $data['inputerror'][]   = UserModel::t_foto;
-                $data['notiferror'][]   = $error;
-                $data['status']         = FALSE;
-            }
+        if($this->input->post(AktivitasModel::t_file))
+        {
+            $error                  = $this->upload->display_errors('<span class="help-block">','</span>');//'Username Sudah Digunakan!';
+            $data['inputerror'][]   = AktivitasModel::t_file;
+            $data['notiferror'][]   = $error;
+            $data['status']         = FALSE;
         }
 
         //kirim status validasi error
@@ -381,7 +384,7 @@ class Aktivitas extends CI_Controller {
      */
     public function upload(){
         $config['upload_path']          = './assets/uploads/file';
-        $config['allowed_types']        = 'gif|jpg|png|pdf|zip|doc|docx|xls|txt|xlsx|ppt';
+        $config['allowed_types']        = 'jpeg|gif|jpg|png|pdf|zip|doc|docx|xls|txt|xlsx|ppt|mp4';
         $config['max_size']             = 2000; //maksimal 2mb
         $this->load->library('upload', $config);
 

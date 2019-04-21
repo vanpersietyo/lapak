@@ -135,11 +135,13 @@
         $(  '[name="<?php echo AktivitasModel::t_nama_aktivitas; ?>"],' +
             '[name="<?php echo AktivitasModel::t_pengerjaan_aktivitas; ?>"],' +
             '[name="<?php echo AktivitasModel::t_keterangan_aktivitas; ?>"],' +
+            '[name="<?php echo AktivitasModel::t_file; ?>"],' +
             '[name="<?php echo AktivitasModel::t_tgl_aktivitas; ?>"]').parents("div.form-body.has-error").removeClass('has-error');
 
         $(  '[class="NOTIF_ERROR_<?php echo AktivitasModel::t_tgl_aktivitas; ?>"],' +
             '[class="NOTIF_ERROR_<?php echo AktivitasModel::t_nama_aktivitas; ?>"],' +
             '[class="NOTIF_ERROR_<?php echo AktivitasModel::t_keterangan_aktivitas; ?>"],' +
+            '[class="NOTIF_ERROR_<?php echo AktivitasModel::t_file; ?>"],' +
             '[class="NOTIF_ERROR_<?php echo AktivitasModel::t_pengerjaan_aktivitas; ?>"]').html('');
     }
 
