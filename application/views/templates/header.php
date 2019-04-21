@@ -85,11 +85,12 @@
 /** @var CI_Controller $this */
 /** @var UserModel $user */
 $user = $this->db->get_where('v_user',['id_user' => $this->role->user_id_yang_login()])->row();
+$foto = $user->foto ?: 'male-circle-512.png';
 ?>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="<?php echo base_url('assets/uploads/foto_profile/').$user->foto;?>" class="user-image" alt="User Image">
+                            <img src="<?php echo base_url('assets/uploads/foto_profile/').$foto;?>" class="user-image" alt="User Image">
                             <span class="hidden-xs"><?=$this->session->userdata("username")?></span>
                         </a>
                         <ul class="dropdown-menu">

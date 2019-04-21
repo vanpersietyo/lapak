@@ -26,9 +26,10 @@
                 <h3 class="box-title">Kelola Aktivitas</h3>
                 <!-- tools box -->
                 <div class="pull-right box-tools">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Data" data-original-title="Tambah Data" onclick="add()"><i class="fa fa-plus"> Tambah Data</i></button>
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Refresh Data" data-original-title="Refresh Data" onclick="refresh()"><i class="fa fa-refresh"> Refresh Data</i></button>
-<!--                    <a href="javascript:void(0)" aria-hidden="true" type="button" class="btn btn-primary btn-sm pull-right" onclick="add()"><i class="fa fa-wpforms"></i> Tambah Data</a>-->
+                    <?php if($this->role->level() == 4){?>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Data" data-original-title="Tambah Data" onclick="add()"><i class="fa fa-plus"> Tambah Data</i></button>
+                        <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Refresh Data" data-original-title="Refresh Data" onclick="refresh()"><i class="fa fa-refresh"> Refresh Data</i></button>
+                    <?php } ?>
                 </div>
                 <!-- /. tools -->
             </div>
@@ -38,14 +39,14 @@
                     <table class="table table-striped table-bordered sourced-data" id="mytable" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Kode Aktivitas</th>
-                                <th>Nama Aktivitas</th>
-                                <th>Tanggal Aktivitas</th>
-                                <th>Pelaksana</th>
-                                <th>Status</th>
-                                <th>Keterangan</th>
-                                <th>Action</th>
+                                <th style="width: 5%">No</th>
+                                <th style="width: 10%">Kode</th>
+                                <th style="width: 15%">Aktvitas</th>
+                                <th style="width: 10%">Tanggal</th>
+                                <th style="width: 15%">Pelaksana</th>
+                                <th style="width: 10%">Status</th>
+                                <th style="width: 20%">Sub Bagian</th>
+                                <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -475,9 +476,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-body">
-                                            <label class="control-label">Foto</label>
-                                            <input type="file" name="images">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_status_aktivitas;?>"></div>
+                                            <label class="control-label">File</label>
+                                            <input type="file" name="<?php echo AktivitasModel::t_file;?>">
+                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_file;?>"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -493,6 +494,10 @@
                             </div>
                         </form>
                     </fieldset>
+
+                    <object width="400" height="500" type="application/pdf" data="http://localhost/project/lapak/assets/uploads/file/4_Komponen-IMK.pdf">
+                        <p>Insert your error message here, if the PDF cannot be displayed.</p>
+                    </object>
 
                     <!-- /.row -->
                 </div>

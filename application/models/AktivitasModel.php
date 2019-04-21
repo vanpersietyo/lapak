@@ -19,6 +19,7 @@ class AktivitasModel extends CI_Model
     const v_keterangan_aktivitas = "keterangan_aktivitas";
     const v_pengerjaan_aktivitas = "pengerjaan_aktivitas";
     const v_status_aktivitas = "status_aktivitas";
+    const v_file = "file";
     const v_keterangan_status_aktivitas = "keterangan_status_aktivitas";
     const v_deleted = "deleted";
     const v_date_created = "date_created";
@@ -62,6 +63,7 @@ class AktivitasModel extends CI_Model
     const t_keterangan_aktivitas = "keterangan_aktivitas";
     const t_pengerjaan_aktivitas = "pengerjaan_aktivitas";
     const t_status_aktivitas = "status_aktivitas";
+    const t_file = "file";
     const t_deleted = "deleted";
     const t_date_created = "date_created";
     const t_date_modified = "date_modified";
@@ -74,10 +76,12 @@ class AktivitasModel extends CI_Model
     public $keterangan_aktivitas;
     public $pengerjaan_aktivitas;
     public $status_aktivitas;
+    public $file;
     public $keterangan_status_aktivitas;
     public $deleted;
     public $date_created;
     public $date_modified;
+
     public $kode_user;
     public $username;
     public $password;

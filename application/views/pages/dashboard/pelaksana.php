@@ -9,17 +9,34 @@
 
 <!-- Small boxes (Stat box) -->
 <div class="row">
+
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>1</h3>
+                <p>Dalam Negeri</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="<?=site_url('transaksi/aktivitas')?>" class="small-box-footer">Lihat Aktivitas<i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><?=$antrian?></h3>
-                <p>Antrian Saat Ini</p>
+                <h3>2</h3>
+                <p>Luar Negeri</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-bag"></i>
             </div>
-            <a href="<?=site_url('pesan_layanan.php')?>" class="small-box-footer">Pesan Layanan <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('laporan_stok_spare_part.php')?>" class="small-box-footer">Lihat Stok Spare Part<i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -27,13 +44,13 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3><?=$proses?></h3>
-                <p>Proses Saat Ini</p>
+                <h3>3</h3>
+                <p>Pelaporan dan Evaluasi</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="<?=site_url('pesanan_saya.php')?>" class="small-box-footer">Lihat Pesanan <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('laporan_pembelian_spare_part.php')?>" class="small-box-footer">Lihat Laporan Pembelian<i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -41,31 +58,14 @@
         <!-- small box -->
         <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><?=$kendaraan?></h3>
-
-                <p>Jumlah Kendaraan Anda</p>
+                <h3>4</h3>
+                <p>Apa lagi ya</p>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?=site_url('kendaraan.php')?>" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('laporan_penjualan_spare_part.php')?>" class="small-box-footer">Lihat Laporan Penjualan<i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-red">
-            <div class="inner">
-                <h3><?=$history;?></h3>
-
-                <p>History Transaksi</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="<?=site_url('history.php')?>" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
 </div>
 <!-- /.row -->

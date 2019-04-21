@@ -109,7 +109,7 @@ class User extends CI_Controller {
             UserModel::t_date_modified      =>$this->input->post(UserModel::t_date_modified),
         ];
 		$this->_validate($input);
-		if($input['update']=='true')
+		if($input['update']==='true')
 		{
             $this->ajax_update($input);
         }else{
