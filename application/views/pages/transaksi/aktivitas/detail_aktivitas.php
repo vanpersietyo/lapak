@@ -94,7 +94,7 @@ if($aktivitas->status_aktivitas==0){
                         <?php
                         if ($json){
                             echo '<label for="namaPemesan">Lampiran File : '.$json->file_name.'</label> ';
-                            echo '&nbsp; <a href="<?php echo base_url(\'assets/uploads/file/\').$json->file_name?>" download><span class="label label-success"><i class="fa fa-download"></i> Download File</span></a>';
+                            echo '&nbsp; <a href="'.base_url().'assets/uploads/file/'.$json->file_name.'" download><span class="label label-success"><i class="fa fa-download"></i> Download File</span></a>';
                             if($json->is_image){ ?>
                                 <div class="row margin-bottom">
                                     <div class="col-sm-6">
