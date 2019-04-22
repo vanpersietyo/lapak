@@ -136,11 +136,11 @@ class Aktivitas extends CI_Controller {
 			$row[] = $no++;
 			$row[] = $d->kode_aktivitas;
 			$row[] = $d->nama_aktivitas;
-			$row[] = Conversion::convert_date($d->tgl_aktivitas,'d-m-Y');
+			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
             $row[] = $d->nama;
-            $row[] = $status;
-            $row[] = $d->keterangan_jabatan;
-            //add html for action
+			$row[] = $d->keterangan_jabatan;
+			$row[] = $status;
+			//add html for action
 			$row[] = $button;
 			$data[] = $row;
 		}
@@ -433,5 +433,73 @@ class Aktivitas extends CI_Controller {
             show_404();
         }
     }
+
+	public function laporan($id_user = null)
+	{
+		if($this->role->level() == 4){
+			$id_user = $this->role->user_id_yang_login();
+		}
+		$data = [
+			'page'              => 'pages/transaksi/aktivitas/aktivitas_list_laporan',
+			'title'             => 'Laporan',
+			'subtitle'          => 'Aktivitas',
+			'id_user'           => $id_user
+		];
+		$this->load->view('templates/layout', $data);
+	}
+
+	public function ajax_list_laporan($id_user = null) {
+		header('Content-Type: application/json');
+
+		$where  =   [
+			AktivitasModel::t_deleted => 0
+		];
+
+		if($id_user!=null){
+			$where  =   [
+				AktivitasModel::t_id_user   => $id_user,
+				AktivitasModel::t_deleted   => 0
+			];
+		}
+
+		$order  =   [
+			'column' => AktivitasModel::t_date_created,
+			'option' => 'desc'
+		];
+		$list   = $this->AktivitasModel->find_view($where,$order)->result();
+		$data   = [];
+		/** @var AktivitasModel $d */
+		$no =1 ;
+		foreach ($list as $d) {
+			$row = array();
+
+			if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+				$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+			}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+				$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+			}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+				$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+			}
+
+			$row[] = $no++;
+			$row[] = $d->kode_aktivitas;
+			$row[] = $d->nama_aktivitas;
+			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
+			$row[] = $d->nama;
+			$row[] = $d->keterangan_jabatan;
+			$row[] = $status;
+			//add html for action
+			$row[] = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i> Detail</a>';
+			$data[] = $row;
+		}
+
+		$output = array(
+			"recordsTotal"      => $this->AktivitasModel->find_view()->num_rows(),
+			"recordsFiltered"   => $this->AktivitasModel->find_view()->num_rows(),
+			"data"              => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
 
 }

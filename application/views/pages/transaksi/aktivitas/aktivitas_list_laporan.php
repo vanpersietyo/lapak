@@ -46,7 +46,7 @@
                                 <th style="width: 15%">Pelaksana</th>
                                 <th style="width: 15%">Sub Bagian</th>
                                 <th style="width: 10%">Status</th>
-                                <th style="width: 10%">Action</th>
+                                <th style="width: 10%">Detail</th>
                             </tr>
                         </thead>
                     </table>
@@ -74,7 +74,7 @@
             },
             oLanguage   : {sProcessing: "loading..."},
             order       : [],
-            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list/').$id_user?>", "type": "POST" },
+            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list_laporan/').$id_user?>", "type": "POST" },
             //Set column definition initialisation properties.
             "columnDefs": [
                 {

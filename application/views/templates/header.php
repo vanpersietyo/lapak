@@ -65,9 +65,9 @@
         <!-- Logo -->
         <a href="<?=base_url('assets/adminlte/')?>index2.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>TRVL</b></span>
+            <span class="logo-mini"><b>LPK</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>SI Travel</b></span>
+            <span class="logo-lg"><b>SI LAPAK</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">

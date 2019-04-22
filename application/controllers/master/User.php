@@ -374,4 +374,51 @@ class User extends CI_Controller {
     }
 
 
+	public function user_pelaksana()
+	{
+		$data = [
+			'page'              => 'pages/master/user/user_list_pelaksana',
+			'title'             => 'Daftar',
+			'subtitle'          => 'Pelaksana',
+			'list_jabatan'      => $this->JabatanModel->find_view([JabatanModel::t_id_level => 4])->result()
+		];
+		$this->load->view('templates/layout', $data);
+	}
+
+	public function ajax_list_pelaksana() {
+		header('Content-Type: application/json');
+		$where  =   [
+			UserModel::t_deleted 	=> 0,
+			UserModel::v_id_level 	=> 4
+		];
+		$order  =   [
+			'column' => UserModel::t_date_created,
+			'option' => 'desc'
+		];
+		$list   = $this->UserModel->find_view($where,$order)->result();
+		$data   = [];
+		/** @var UserModel $d */
+		$no =1 ;
+		foreach ($list as $d) {
+			$row = array();
+			$row[] = $no++;
+			$row[] = $d->kode_user;
+			$row[] = $d->username;
+			$row[] = $d->nama;
+			$row[] = $d->nama_level;
+			$row[] = $d->nama_jabatan;
+			//add html for action
+			$row[] = '<button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Detail Data Pelaksana" data-original-title="Detail Data Pelaksana" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i> Detail</button>';
+			$data[] = $row;
+		}
+
+		$output = array(
+			"recordsTotal"      => $this->UserModel->find_view()->num_rows(),
+			"recordsFiltered"   => $this->UserModel->find_view()->num_rows(),
+			"data"              => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
 }

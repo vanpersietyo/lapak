@@ -11,6 +11,8 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('login_model');
+		$this->load->model('UserModel');
+		$this->load->model('AktivitasModel');
     }
 
     public function index(){

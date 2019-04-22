@@ -113,7 +113,7 @@ class Conversion {
 //        if ($date){
 //            $hari = self::convert_date($date.'D');
 //        }else{
-            $hari = date('D');
+            $hari = formatDate($date,'D');
 //        }
 
         switch($hari){

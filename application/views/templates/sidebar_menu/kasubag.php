@@ -8,33 +8,28 @@
 ?>
 <li>
     <a  href="<?=site_url('transaksi/aktivitas')?>">
-        <i class="fa fa-"></i> <span>Aktivitas</span>
+        <i class="fa fa-calendar-minus-o"></i> <span>Aktivitas</span>
     </a>
 </li>
-
-<li class="header">DATA MASTER</li>
 
 <li class="treeview"></li>
 <li>
     <a  href="<?=site_url('master/user')?>">
-        <i class="fa fa-user"></i> <span>List User</span>
+        <i class="fa fa-users"></i> <span>List User</span>
     </a>
 </li>
 
-<li class="header">Informasi</li>
-
 <li class="treeview"></li>
 <li>
-    <a  href="<?=site_url('master/user')?>">
+    <a  href="<?=site_url('master/user_pelaksana')?>">
         <i class="fa fa-user"></i> <span>Biodata Pelaksana</span>
     </a>
 </li>
 
-<li class="header">Laporan</li>
 <li class="treeview"></li>
 <li>
-    <a  href="<?=site_url('master/user')?>">
-        <i class="fa fa-user"></i> <span>Laporan Pelaksana</span>
+    <a  href="<?=site_url('aktivitas/laporan')?>">
+        <i class="fa fa-bar-chart"></i> <span>Laporan Pelaksana</span>
     </a>
 </li>
 
