@@ -40,7 +40,7 @@
                             <th>Username Pelaksana</th>
                             <th>Nama Lengkap</th>
                             <th>Hak Akses</th>
-                            <th>Jabatan</th>
+                            <th>Bagian</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -221,8 +221,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Jabatan</label><select data-live-search-placeholder="Pilih Hak Akses" class="selectpicker form-control" name="<?php echo UserModel::t_id_jabatan;?>" data-show-subtext="true" data-live-search="true" required="required" onchange="get_hak_akses()"  readonly="readonly">
-                                                <option value=""> -- Pilih Jabatan-- </option>
+                                            <label class="control-label">Bagian</label>
+                                            <select class="form-control" name="<?php echo UserModel::t_id_jabatan;?>" onchange="get_hak_akses()"  disabled="disabled">
                                                 <?php
                                                 /** @var JabatanModel $list_jabatan */
                                                 /** @var JabatanModel $detail */
@@ -248,8 +248,8 @@
 
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Bagian</label>
-                                            <input name="<?php echo UserModel::t_bagian;?>" placeholder="Bagian User" class="form-control" type="text"  readonly="readonly">
+                                            <label class="control-label">Jabatan</label>
+                                            <input name="<?php echo UserModel::t_bagian;?>" placeholder="Jabatan User" class="form-control" type="text"  readonly="readonly">
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_bagian;?>"></div>
                                         </div>
                                     </div>
@@ -361,9 +361,3 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<script type="application/javascript">
-    $( document ).ready(function() {
-        $(".select2").select2();
-    });
-</script>

@@ -58,7 +58,7 @@ if($aktivitas->status_aktivitas==0){
                                 <input readonly="readonly" type="text" value="<?php echo $aktivitas->nama; ?>" class="form-control">
                             </div>
                             <div class="col-lg-6">
-                                <label>Bagian</label>
+                                <label>Jabatan</label>
                                 <input readonly="readonly" type="text" class="form-control" value="<?php echo $aktivitas->bagian;?>">
                             </div>
                         </div>
@@ -70,7 +70,7 @@ if($aktivitas->status_aktivitas==0){
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-6">
-                                <label>Jabatan</label>
+                                <label>Bagian</label>
                                 <input readonly="readonly" type="text" class="form-control" value="<?php echo $aktivitas->nama_jabatan;?>">
                             </div>
                             <div class="col-lg-6">

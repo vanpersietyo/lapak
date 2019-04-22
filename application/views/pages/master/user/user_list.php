@@ -27,7 +27,7 @@
                 <div class="pull-right box-tools">
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Data" data-original-title="Tambah Data" onclick="add()"><i class="fa fa-plus"> Tambah Data</i></button>
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Refresh Data" data-original-title="Refresh Data" onclick="refresh()"><i class="fa fa-refresh"> Refresh Data</i></button>
-<!--                    <a href="javascript:void(0)" aria-hidden="true" type="button" class="btn btn-primary btn-sm pull-right" onclick="add()"><i class="fa fa-wpforms"></i> Tambah Data</a>-->
+                    <!--                    <a href="javascript:void(0)" aria-hidden="true" type="button" class="btn btn-primary btn-sm pull-right" onclick="add()"><i class="fa fa-wpforms"></i> Tambah Data</a>-->
                 </div>
                 <!-- /. tools -->
             </div>
@@ -42,7 +42,7 @@
                             <th>Username</th>
                             <th>Nama Lengkap</th>
                             <th>Hak Akses</th>
-                            <th>Jabatan</th>
+                            <th>Bagian</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -166,7 +166,7 @@
         setTimeout(function(){
             swal.close();
             table.api().ajax.reload();
-            }, 1000);
+        }, 1000);
     }
     function reload()
     {
@@ -344,7 +344,6 @@
     }
 </script>
 
-
 <!-- modal -->
 <div class="modal fade" id="modal_form">
     <div class="modal-dialog modal-lg">
@@ -400,15 +399,16 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Jabatan</label><select data-live-search-placeholder="Pilih Hak Akses" class="selectpicker form-control" name="<?php echo UserModel::t_id_jabatan;?>" data-show-subtext="true" data-live-search="true" required="required" onchange="get_hak_akses()">
-                                                <option value=""> -- Pilih Jabatan-- </option>
-                                                <?php
-                                                /** @var JabatanModel $list_jabatan */
-                                                /** @var JabatanModel $detail */
-                                                foreach ($list_jabatan as $detail){
-                                                    echo '<option value="'.$detail->id_jabatan.'">'.$detail->nama_jabatan.'</option>';
-                                                }
-                                                ?>
+                                            <label class="control-label">Bagian</label>
+                                            <select data-live-search-placeholder="Pilih Bagian" class="selectpicker form-control" name="<?php echo UserModel::t_id_jabatan;?>" data-show-subtext="true" data-live-search="true" required="required" onchange="get_hak_akses()">
+                                                <option value=""> -- Pilih bagian-- </option>
+												<?php
+												/** @var JabatanModel $list_jabatan */
+												/** @var JabatanModel $detail */
+												foreach ($list_jabatan as $detail){
+													echo '<option value="'.$detail->id_jabatan.'">'.$detail->nama_jabatan.'</option>';
+												}
+												?>
                                             </select>
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_id_jabatan;?>"></div>
                                         </div>
@@ -427,9 +427,8 @@
 
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Bagian</label>
-                                            <input name="<?php echo UserModel::t_bagian;?>" placeholder="Bagian User" class="form-control" type="text">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_bagian;?>"></div>
+                                            <label class="control-label">Jabatan</label>
+                                            <input name="<?php echo UserModel::t_bagian;?>" placeholder="Jabatan User" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -526,10 +525,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-
                             </div>
 
                             <div class="row">

@@ -84,7 +84,8 @@
 <?php
 /** @var CI_Controller $this */
 /** @var UserModel $user */
-$user = $this->db->get_where('v_user',['id_user' => $this->role->user_id_yang_login()])->row();
+$this->load->model('UserModel');
+$user = $this->UserModel->get_view_by_id($this->role->user_id_yang_login());
 $foto = $user->foto ?: 'male-circle-512.png';
 ?>
                     <!-- User Account: style can be found in dropdown.less -->
@@ -103,14 +104,24 @@ $foto = $user->foto ?: 'male-circle-512.png';
                                 </p>
                             </li>
                             <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="<?= site_url('profile.php')?>" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="<?=site_url('logout.php')?>" class="btn btn-default btn-flat">Sign out</a>
-                                </div>
-                            </li>
+                            <?php
+                            if($user->id_level == 4){?>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="<?php echo site_url('profile.php');?>" class="btn btn-info btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="<?php echo site_url('logout.php');?>" class="btn btn-danger btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            <?php }else{
+								echo '
+                                    <li class="user-footer">
+                                        <div class="text-center">
+                                            <a href="'.site_url('logout.php').'" class="btn btn-danger btn-flat">Sign out</a>
+                                        </div>
+                                    </li>';
+                            }?>
                         </ul>
                     </li>
 

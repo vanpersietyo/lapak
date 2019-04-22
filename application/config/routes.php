@@ -19,7 +19,7 @@ $route['reset.do']          = 'login/proses_reset_password';
 
 //User
 $route['dashboard']         = 'dashboard/index';
-$route['profile.php']       = 'user/profile';
+$route['profile.php']       = 'master/user/profile';
 $route['ubah_profile.php']  = 'user/ubah_profile';
 $route['ubah_profile.do']   = 'user/proses_ubah_profile';
 $route['ubah_password.do']  = 'user/proses_ubah_password';
@@ -28,7 +28,6 @@ $route['ubah_password.do']  = 'user/proses_ubah_password';
 $route['logout.php']        = 'login/logout';
 
 //Master
-$route['master/user']           = 'master/user';
 $route['master/user_pelaksana'] = 'master/user/user_pelaksana';
 
 

@@ -255,7 +255,7 @@ class User extends CI_Controller {
         $this->form_validation->set_message('numeric', '{field} Hanya Boleh Berisi Angka {param}!');
 
         //validasi input
-        $this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[12]');
+        $this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[20]');
         $this->form_validation->set_rules(UserModel::t_password, ucfirst(UserModel::t_password), 'trim|min_length[8]');
         $this->form_validation->set_rules(UserModel::t_email, ucfirst(UserModel::t_email), 'valid_email');
 
@@ -419,6 +419,17 @@ class User extends CI_Controller {
 		);
 		//output to json format
 		echo json_encode($output);
+	}
+
+	public function profile(){
+		$data = [
+			'page'              => 'pages/master/user/profile',
+			'title'             => 'Profile',
+			'subtitle'          => 'User',
+			'list_jabatan'      => $this->JabatanModel->find_view()->result(),
+			'user'				=> $this->UserModel->get_view_by_id($this->role->user_id_yang_login())
+		];
+		$this->load->view('templates/layout', $data);
 	}
 
 }
