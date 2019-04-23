@@ -23,6 +23,18 @@ if ($notif=='login_sukses') {?>
 
     </script>
     <?php
+} elseif ($notif=='login_nonaktif') {?>
+    <script type='text/javascript'>
+        swal({
+            title   : '<strong>Gagal</strong>',
+            type    : 'warning',
+            html    : '<h5> User Anda Dinonaktifkan! </h5>',
+            showCloseButton: true,
+            showCancelButton: false,
+            focusConfirm: false,
+        })
+    </script>
+    <?php
 } elseif ($notif=='login_gagal') {?>
     <script type='text/javascript'>
         swal({

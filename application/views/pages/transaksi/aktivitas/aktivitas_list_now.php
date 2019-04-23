@@ -41,12 +41,12 @@
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 10%">Kode</th>
-                                <th style="width: 15%">Aktvitas</th>
-                                <th style="width: 15%">Tanggal</th>
-                                <th style="width: 15%">Pelaksana</th>
-                                <th style="width: 15%">Sub Bagian</th>
+                                <th style="width: 15%">Hari/Tanggal</th>
+                                <th style="width: 15%">Nama Aktvitas</th>
+                                <th style="width: 15%">Lampiran</th>
                                 <th style="width: 10%">Status</th>
                                 <th style="width: 10%">Action</th>
+<!--                                No, Kode, Hari/Tanggal, Nama Aktivitas, Lampiran File, Status, Action-->
                             </tr>
                         </thead>
                     </table>
@@ -74,7 +74,7 @@
             },
             oLanguage   : {sProcessing: "loading..."},
             order       : [],
-            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list/').$id_user?>", "type": "POST" },
+            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list_now/').$id_user?>", "type": "POST" },
             //Set column definition initialisation properties.
             "columnDefs": [
                 {
@@ -93,7 +93,7 @@
         position = 'add';
         $('#modal_form').modal('show'); // show bootstrap modal
         $('[name="<?php echo AktivitasModel::t_nama_aktivitas;    ?>"]').focus();
-        $('.modal-title').text('Tambah Data User'); // Set Title to Bootstrap modal title
+        $('.modal-title').text('Tambah Data Aktivitas'); // Set Title to Bootstrap modal title
     }
     function before_add() {
         $('#form')[0].reset(); // reset form on modals
@@ -435,11 +435,12 @@
                                             <input name="<?php echo AktivitasModel::t_kode_aktivitas?>" class="form-control" type="text" placeholder="Akan Tergenerate Otomatis" readonly="readonly">
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-body">
-                                            <label for="projectinput2">Nama Aktivitas</label>
-                                            <input name="<?php echo AktivitasModel::t_nama_aktivitas?>" placeholder="Masukkan Nama Aktivitas" class="form-control" type="text" autofocus="autofocus">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_nama_aktivitas;?>"></div>
+                                            <label class="control-label">Tanggal Aktivitas</label>
+                                            <input name="<?php echo AktivitasModel::t_tgl_aktivitas;?>" placeholder="Tanggal Aktivitas" class="form-control" type="date" value="<?php echo date('Y-m-d');?>">
+                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_tgl_aktivitas;?>"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -449,11 +450,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-body">
-                                            <label class="control-label">Tanggal Aktivitas</label>
-                                            <input name="<?php echo AktivitasModel::t_tgl_aktivitas;?>" placeholder="Tanggal Aktivitas" class="form-control" type="date" value="<?php echo date('Y-m-d');?>">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_tgl_aktivitas;?>"></div>
+                                            <label for="projectinput2">Nama Aktivitas</label>
+                                            <!--                                            <input name="--><?php //echo AktivitasModel::t_nama_aktivitas?><!--" placeholder="Masukkan Nama Aktivitas" class="form-control" type="text" autofocus="autofocus">-->
+                                            <textarea name="<?php echo AktivitasModel::t_nama_aktivitas;?>" placeholder="Masukkan Nama Aktivitas" class="form-control"> </textarea>
+                                            <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_nama_aktivitas;?>"></div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-body">
                                             <label for="namaPemesan">Pengerjaan Aktivitas</label>

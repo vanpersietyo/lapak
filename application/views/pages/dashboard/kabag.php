@@ -46,7 +46,7 @@ $aktivitas  = $this->AktivitasModel->find_view([
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="<?=site_url('transaksi/aktivitas')?>" class="small-box-footer">Lihat Aktivitas <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('aktivitas/laporan')?>" class="small-box-footer">Lihat Laporan Aktivitas Pelaksana <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

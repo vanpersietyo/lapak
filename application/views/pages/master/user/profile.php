@@ -6,6 +6,7 @@
  * Time: 21:59
  */
 /** @var CI_Controller $this */
+/** @var UserModel $user */
 ?>
 
 <style type="text/css">
@@ -218,53 +219,9 @@
 
 
 <script type="text/javascript">
-    var table;
-    var position = 'add';
     $(document).ready(function() {
-        table = $("#mytable").dataTable({
-            initComplete: function() {
-                var api = this.api();
-                $('#mytable_filter input')
-                    .off('.DT')
-                    .on('keyup.DT', function(e) {
-                        if (e.keyCode == 13) {
-                            api.search(this.value).draw();
-                        }
-                    });
-            },
-            oLanguage   : {sProcessing: "loading..."},
-            order       : [],
-            ajax        : { "url": "<?php echo site_url('master/user/ajax_list')?>", "type": "POST" },
-            //Set column definition initialisation properties.
-            "columnDefs": [
-                {
-                    "targets": [ -1 ], //last column
-                    "orderable": false //set not orderable
-                }
-            ]
-        });
+        edit(<?php echo $user->id_user;?>)
     });
-
-    function add()
-    {
-        if(position === 'update'){
-            before_add();
-        }
-        position = 'add';
-        $('#modal_form').modal('show'); // show bootstrap modal
-        $('[name="<?php echo UserModel::t_username;    ?>"]').focus();
-        $('.modal-title').text('Tambah Data User'); // Set Title to Bootstrap modal title
-    }
-    function before_add() {
-        $('#form')[0].reset(); // reset form on modals
-        clear();
-        $('[name="update"]').val('');
-        $('[name=<?php echo UserModel::t_password;      ?>]').removeAttr('readonly');
-        $('[name="<?php echo UserModel::t_id_jabatan;     ?>"]').val('').trigger('change');
-        $('[name="<?php echo UserModel::t_jenis_kelamin;?>"]').val('').trigger('change');
-        //CKEDITOR.instances.<?php //echo UserModel::t_tugas;?>//.setData(data.<?php //echo UserModel::t_tugas;?>// );
-        //CKEDITOR.instances.<?php //echo UserModel::t_tugas;?>//.setData('');
-    }
 
     function edit(id)
     {
@@ -323,19 +280,6 @@
             '[class="NOTIF_ERROR_<?php echo UserModel::t_password; ?>"]').html('');
     }
 
-    function refresh()
-    {
-        loading();
-        setTimeout(function(){
-            swal.close();
-            table.api().ajax.reload();
-        }, 1000);
-    }
-    function reload()
-    {
-        table.api().ajax.reload();
-    }
-
     function save()
     {
         let btnsv = $('#btnSave');
@@ -356,13 +300,11 @@
                 if(data.status) //if success close modal and reload ajax table
                 {
                     $('#modal_form').modal('hide');
-                    reload();
                     swal({
                         title: 'Success!',
                         html: '<h5>' + data.messages + '</h5>',
                         type: 'success'
                     });
-                    before_add();
                 }
                 else
                 {
@@ -394,47 +336,6 @@
                 btnsv.attr('disabled',false); //set button enable
             }
         });
-    }
-
-    //function untuk delete data
-    function remove(id,kode,name)
-    {
-        swal({
-            title: 'Delete Data?',
-            html: '<h5>Yakin akan delete user <b>'+kode+' - '+name+'</b>?</h5>',
-            type: 'info',
-            showCancelButton: true,
-            allowOutsideClick: false,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Tidak',
-            confirmButtonText: 'Ya'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    url     : "<?php echo site_url('master/user/ajax_delete')?>/"+id,
-                    type    : "POST",
-                    dataType: "JSON",
-                    success : function(data)
-                    {
-                        if(data.status){
-                            reload();
-                            swal({
-                                title   : "Berhasil !",
-                                html    : '<h5>' + data.messages + '</h5>',
-                                type    : 'success'
-                            });
-                        }else{
-                            swal("Gagal!", data.messages, "error");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown)
-                    {
-                        swal("Ya Ampun Maaf !", "Data Gagal Dihapus !", "warning");
-                    }
-                });
-            }
-        })
     }
 
     function get_hak_akses() {
@@ -487,7 +388,6 @@
                     success : function(data)
                     {
                         if(data.status){
-                            reload();
                             swal({
                                 title   : "Berhasil !",
                                 html    : '<h5>' + data.messages + '</h5>',

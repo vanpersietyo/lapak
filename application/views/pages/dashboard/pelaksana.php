@@ -11,6 +11,11 @@ $aktivitas  = $this->AktivitasModel->find_view([
 	AktivitasModel::t_deleted    => 0,
 	AktivitasModel::t_id_user    => $this->role->user_id_yang_login(),
 ])->num_rows();
+$akt_non_tl  = $this->AktivitasModel->find_view([
+	AktivitasModel::t_deleted    => 0,
+	AktivitasModel::t_id_user    => $this->role->user_id_yang_login(),
+	AktivitasModel::t_status_aktivitas =>0
+])->num_rows();
 $akt_now    = $this->AktivitasModel->find_view([
 	AktivitasModel::t_deleted    => 0,
 	AktivitasModel::t_id_user    => $this->role->user_id_yang_login(),
@@ -21,22 +26,36 @@ $akt_now    = $this->AktivitasModel->find_view([
 <div class="row">
 
     <!-- ./col -->
-    <div class="col-lg-6 col-xs-6">
+    <div class="col-lg-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-red">
+            <div class="inner">
+                <h3><?php echo $akt_non_tl;?></h3>
+                <p>Aktivitas Belum Di TL</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-alert"></i>
+            </div>
+            <a href="<?=site_url('aktivitas/tl')?>" class="small-box-footer"> Lihat Aktivitas&nbsp;Belum Di TL <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-orange">
             <div class="inner">
                 <h3><?php echo $akt_now;?></h3>
                 <p>Aktivitas Hari Ini</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person"></i>
+                <i class="ion ion-android-time"></i>
             </div>
-            <a href="<?=site_url('master/user_pelaksana')?>" class="small-box-footer"> Lihat Aktivitas&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('aktivitas/now')?>" class="small-box-footer"> Lihat Semua Aktivitas&nbsp;Hari Ini <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
 
-    <div class="col-lg-6 col-xs-6">
+    <div class="col-lg-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
@@ -46,7 +65,7 @@ $akt_now    = $this->AktivitasModel->find_view([
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="<?=site_url('transaksi/aktivitas')?>" class="small-box-footer"> Lihat Semua Aktivitas&nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?=site_url('transaksi/aktivitas')?>" class="small-box-footer"> Lihat Semua Aktivitas <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

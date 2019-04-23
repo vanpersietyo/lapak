@@ -40,7 +40,9 @@ class Aktivitas extends CI_Controller {
 		header('Content-Type: application/json');
 
         $where  =   [
-            AktivitasModel::t_deleted => 0
+            AktivitasModel::t_deleted 			=> 0,
+			AktivitasModel::v_id_parent_jabatan => $this->role->jabatan(),
+			AktivitasModel::t_status_aktivitas	=> 0
         ];
 
 		if($id_user!=null){
@@ -65,16 +67,16 @@ class Aktivitas extends CI_Controller {
                 if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>                
-                        <button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>                
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
                         ';
                 }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }
             }elseif ($this->role->level()==3){//level kasubag
 
@@ -82,51 +84,51 @@ class Aktivitas extends CI_Controller {
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
                     if($this->cek_user_aktivitas_persetujuan($d->id_aktivitas)){
                         $button = '
-                        <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
-                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
-                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
                         ';
                     }else{
-                        $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                        $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                     }
                 }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }
 
             }elseif ($this->role->level()==2){//level kabag
                 if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }elseif($d->status_aktivitas==1){//jika aktivitas di setujui
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }elseif($d->status_aktivitas==2){//jika aktivitas di tolak
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
-                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+                    $button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
                 }
             }elseif ($this->role->level()==1){ //level root
                 if($d->status_aktivitas==0){
                     $status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                        <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
-                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
-                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
-                        <button type="button" class="btn btn-warning btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
                         ';
                 }elseif($d->status_aktivitas==1){
                     $status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
 				';
                 }else{
                     $status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
                     $button = '
-                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
 				';
                 }
             }
@@ -458,7 +460,8 @@ class Aktivitas extends CI_Controller {
 		if($id_user!=null){
 			$where  =   [
 				AktivitasModel::t_id_user   => $id_user,
-				AktivitasModel::t_deleted   => 0
+				AktivitasModel::t_deleted   			=> 0,
+				AktivitasModel::t_status_aktivitas.'!='   => 0
 			];
 		}
 
@@ -480,16 +483,21 @@ class Aktivitas extends CI_Controller {
 			}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
 				$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
 			}
+			$json	  = json_decode($d->file);
+			/** @var AktivitasModel $json */
+			$lampiran = $json ? '<a href="'.base_url().'assets/uploads/file/'.$json->file_name.'" download>'.$json->file_name.'</a>' : ' - ';
 
 			$row[] = $no++;
 			$row[] = $d->kode_aktivitas;
-			$row[] = $d->nama_aktivitas;
 			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
+			$row[] = $d->nama_aktivitas;
 			$row[] = $d->nama;
 			$row[] = $d->keterangan_jabatan;
+			$row[] = $lampiran;
 			$row[] = $status;
+			//		No, Kode, Hari/Tanggal, Nama Aktivitas, Nama Pelaksana, Sub Bagian, File Lampiran, Status, Detail
 			//add html for action
-			$row[] = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i> Detail</a>';
+			$row[] = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i> Detail</a>';
 			$data[] = $row;
 		}
 
@@ -501,5 +509,280 @@ class Aktivitas extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
+
+
+	public function aktivitas_non_tl($id_user = null)
+	{
+		if($this->role->level() == 4){
+			$id_user = $this->role->user_id_yang_login();
+		}
+		$data = [
+			'page'              => 'pages/transaksi/aktivitas/aktivitas_list_non_tl',
+			'title'             => 'Daftar',
+			'subtitle'          => 'Aktivitas',
+			'id_user'           => $id_user,
+		];
+		$this->load->view('templates/layout', $data);
+	}
+
+	public function ajax_list_non_tl($id_user = null) {
+		header('Content-Type: application/json');
+
+		$where  =   [
+			AktivitasModel::t_deleted 			=> 0,
+			AktivitasModel::v_id_parent_jabatan => $this->role->jabatan(),
+			AktivitasModel::t_status_aktivitas	=> 0
+		];
+
+		if($id_user!=null){
+			$where  =   [
+				AktivitasModel::t_id_user   		=> $id_user,
+				AktivitasModel::t_deleted   		=> 0,
+				AktivitasModel::t_status_aktivitas	=> 0
+			];
+		}
+
+		$order  =   [
+			'column' => AktivitasModel::t_date_created,
+			'option' => 'desc'
+		];
+		$list   = $this->AktivitasModel->find_view($where,$order)->result();
+		$data   = [];
+		/** @var AktivitasModel $d */
+		$no =1 ;
+		foreach ($list as $d) {
+			$row = array();
+
+			if($this->role->level()==4){//level pelaksana
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>                
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        ';
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+			}elseif ($this->role->level()==3){//level kasubag
+
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					if($this->cek_user_aktivitas_persetujuan($d->id_aktivitas)){
+						$button = '
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        ';
+					}else{
+						$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+					}
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+
+			}elseif ($this->role->level()==2){//level kabag
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+			}elseif ($this->role->level()==1){ //level root
+				if($d->status_aktivitas==0){
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        ';
+				}elseif($d->status_aktivitas==1){
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+				';
+				}else{
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+				';
+				}
+			}
+			else{
+			}
+			$json	  = json_decode($d->file);
+			$lampiran = $json ? '<a href="'.base_url().'assets/uploads/file/'.$json->file_name.'" download>'.$json->file_name.'</a>' : ' - ';
+//			<!--                                No, Kode, Hari/Tanggal, Nama Aktivitas, Lampiran File, Status, Action-->
+			$row[] = $no++;
+			$row[] = $d->kode_aktivitas;
+			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
+			$row[] = $d->nama_aktivitas;
+			$row[] = $lampiran;
+			$row[] = $status;
+			//add html for action
+			$row[] = $button;
+			$data[] = $row;
+		}
+
+		$output = array(
+			"recordsTotal"      => $this->AktivitasModel->find_view()->num_rows(),
+			"recordsFiltered"   => $this->AktivitasModel->find_view()->num_rows(),
+			"data"              => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
+
+	public function aktivitas_now($id_user = null)
+	{
+		if($this->role->level() == 4){
+			$id_user = $this->role->user_id_yang_login();
+		}
+		$data = [
+			'page'              => 'pages/transaksi/aktivitas/aktivitas_list_now',
+			'title'             => 'Daftar',
+			'subtitle'          => 'Aktivitas',
+			'id_user'           => $id_user
+		];
+		$this->load->view('templates/layout', $data);
+	}
+
+	public function ajax_list_now($id_user = null) {
+		header('Content-Type: application/json');
+
+		$where  =   [
+			AktivitasModel::t_deleted 			=> 0,
+			AktivitasModel::v_id_parent_jabatan => $this->role->jabatan(),
+			AktivitasModel::t_status_aktivitas	=> 0
+		];
+
+		if($id_user!=null){
+			$where  =   [
+				AktivitasModel::t_id_user  	 	=> $id_user,
+				AktivitasModel::t_deleted   	=> 0,
+				AktivitasModel::t_tgl_aktivitas => date('Y-m-d')
+			];
+		}
+
+		$order  =   [
+			'column' => AktivitasModel::t_date_created,
+			'option' => 'desc'
+		];
+		$list   = $this->AktivitasModel->find_view($where,$order)->result();
+		$data   = [];
+		/** @var AktivitasModel $d */
+		$no =1 ;
+		foreach ($list as $d) {
+			$row = array();
+
+			if($this->role->level()==4){//level pelaksana
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>                
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        ';
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+			}elseif ($this->role->level()==3){//level kasubag
+
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					if($this->cek_user_aktivitas_persetujuan($d->id_aktivitas)){
+						$button = '
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        ';
+					}else{
+						$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+					}
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+
+			}elseif ($this->role->level()==2){//level kabag
+				if($d->status_aktivitas==0){ //jika aktivitas sedang menunggu disetujui
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==1){//jika aktivitas di setujui
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}elseif($d->status_aktivitas==2){//jika aktivitas di tolak
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>';
+				}
+			}elseif ($this->role->level()==1){ //level root
+				if($d->status_aktivitas==0){
+					$status = '<span class="label label-warning">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                        <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Setujui Aktivitas" data-original-title="Setujui Aktivitas" onclick="approve('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-check"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Tolak Aktivitas" data-original-title="Tolak Aktivitas" onclick="reject('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama."'".')"><i class="fa fa-close"></i></button>
+                        <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+                        <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data Aktivitas" data-original-title="Ubah Data Aktivitas" onclick="edit('."'".$d->id_aktivitas."'".')"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Hapus Data Aktivitas" data-original-title="Hapus Data Aktivitas" onclick="remove('."'".$d->id_aktivitas."',"."'".$d->kode_aktivitas."',"."'".$d->nama_aktivitas."'".')"><i class="fa fa-close"></i></button>
+                        ';
+				}elseif($d->status_aktivitas==1){
+					$status = '<span class="label label-success">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+				';
+				}else{
+					$status = '<span class="label label-danger">'.$d->keterangan_status_aktivitas.'</span>';
+					$button = '
+                <a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i></a>
+				';
+				}
+			}
+			else{
+			}
+			$json	  = json_decode($d->file);
+			$lampiran = $json ? '<a href="'.base_url().'assets/uploads/file/'.$json->file_name.'" download>'.$json->file_name.'</a>' : ' - ';
+//			<!--                                No, Kode, Hari/Tanggal, Nama Aktivitas, Lampiran File, Status, Action-->
+			$row[] = $no++;
+			$row[] = $d->kode_aktivitas;
+			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
+			$row[] = $d->nama_aktivitas;
+			$row[] = $lampiran;
+			$row[] = $status;
+			//add html for action
+			$row[] = $button;
+			$data[] = $row;
+		}
+
+		$output = array(
+			"recordsTotal"      => $this->AktivitasModel->find_view()->num_rows(),
+			"recordsFiltered"   => $this->AktivitasModel->find_view()->num_rows(),
+			"data"              => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
 
 }

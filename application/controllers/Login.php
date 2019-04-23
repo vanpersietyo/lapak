@@ -37,23 +37,33 @@ class Login extends CI_Controller {
             UserModel::t_password   => $password,
             UserModel::t_deleted    => 0
         ];
-        $result     = $this->UserModel->find_view($data);
-        if($result->num_rows()==1){
-            $user = $result->row();
-            /** @var UserModel $user */
-            $session = [
-                'id_user'      => $user->id_user,
-                'username'     => $user->username,
-                'nama'         => $user->nama,
-                'level'        => $user->id_level,
-                'nama_level'   => $user->nama_level,
-                'jabatan'      => $user->id_jabatan,
-                'nama_jabatan' => $user->nama_jabatan,
-                'logged_in'    => TRUE
-            ];
-            $this->session->set_userdata($session);
-            $this->load->view('pages/login/notif_login',['notif' =>'login_sukses']);
-        } else {
+		$result     = $this->UserModel->find_view($data);
+
+		$data2       = [
+            UserModel::t_username   => $username,
+            UserModel::t_password   => $password,
+            UserModel::t_deleted    => 1
+        ];
+        $result2    = $this->UserModel->find_view($data2);
+
+		if($result->num_rows()==1){
+			$user = $result->row();
+			/** @var UserModel $user */
+			$session = [
+				'id_user'      => $user->id_user,
+				'username'     => $user->username,
+				'nama'         => $user->nama,
+				'level'        => $user->id_level,
+				'nama_level'   => $user->nama_level,
+				'jabatan'      => $user->id_jabatan,
+				'nama_jabatan' => $user->nama_jabatan,
+				'logged_in'    => TRUE
+			];
+			$this->session->set_userdata($session);
+			$this->load->view('pages/login/notif_login',['notif' =>'login_sukses']);
+		} elseif($result2->num_rows()==1){
+            $this->load->view('pages/login/notif_login',['notif' =>'login_nonaktif']);
+        }else {
             $this->load->view('pages/login/notif_login',['notif' =>'login_gagal']);
         }
     }

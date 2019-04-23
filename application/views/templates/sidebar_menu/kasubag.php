@@ -8,14 +8,7 @@
 ?>
 <li>
     <a  href="<?=site_url('transaksi/aktivitas')?>">
-        <i class="fa fa-calendar-minus-o"></i> <span>Aktivitas</span>
-    </a>
-</li>
-
-<li class="treeview"></li>
-<li>
-    <a  href="<?=site_url('master/user')?>">
-        <i class="fa fa-users"></i> <span>List User</span>
+        <i class="fa fa-calendar-minus-o"></i> <span>TL Aktivitas</span>
     </a>
 </li>
 
@@ -29,7 +22,7 @@
 <li class="treeview"></li>
 <li>
     <a  href="<?=site_url('aktivitas/laporan')?>">
-        <i class="fa fa-bar-chart"></i> <span>Laporan Pelaksana</span>
+        <i class="fa fa-bar-chart"></i> <span>Laporan Aktivitas</span>
     </a>
 </li>
 

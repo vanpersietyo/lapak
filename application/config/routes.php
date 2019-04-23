@@ -33,6 +33,9 @@ $route['master/user_pelaksana'] = 'master/user/user_pelaksana';
 
 $route['aktivitas/laporan'] = 'transaksi/aktivitas/laporan';
 
+$route['aktivitas/tl'] 	= 'transaksi/aktivitas/aktivitas_non_tl';
+$route['aktivitas/now'] = 'transaksi/aktivitas/aktivitas_now';
+
 
 
 

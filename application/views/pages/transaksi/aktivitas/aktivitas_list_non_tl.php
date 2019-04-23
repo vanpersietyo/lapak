@@ -25,12 +25,12 @@
                 <i class="fa fa-users"></i>
                 <h3 class="box-title">Kelola Aktivitas</h3>
                 <!-- tools box -->
-                <div class="pull-right box-tools">
-                    <?php if($this->role->level() == 4){?>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Data" data-original-title="Tambah Data" onclick="add()"><i class="fa fa-plus"> Tambah Data</i></button>
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Refresh Data" data-original-title="Refresh Data" onclick="refresh()"><i class="fa fa-refresh"> Refresh Data</i></button>
-                    <?php } ?>
-                </div>
+<!--                <div class="pull-right box-tools">-->
+<!--                    --><?php //if($this->role->level() == 4){?>
+<!--                        <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Tambah Data" data-original-title="Tambah Data" onclick="add()"><i class="fa fa-plus"> Tambah Data</i></button>-->
+<!--                        <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Refresh Data" data-original-title="Refresh Data" onclick="refresh()"><i class="fa fa-refresh"> Refresh Data</i></button>-->
+<!--                    --><?php //} ?>
+<!--                </div>-->
                 <!-- /. tools -->
             </div>
 
@@ -41,12 +41,12 @@
                             <tr>
                                 <th style="width: 5%">No</th>
                                 <th style="width: 10%">Kode</th>
-                                <th style="width: 15%">Aktvitas</th>
-                                <th style="width: 15%">Tanggal</th>
-                                <th style="width: 15%">Pelaksana</th>
-                                <th style="width: 15%">Sub Bagian</th>
+                                <th style="width: 15%">Hari/Tanggal</th>
+                                <th style="width: 15%">Nama Aktvitas</th>
+                                <th style="width: 15%">Lampiran</th>
                                 <th style="width: 10%">Status</th>
                                 <th style="width: 10%">Action</th>
+                                <!--                                No, Kode, Hari/Tanggal, Nama Aktivitas, Lampiran File, Status, Action-->
                             </tr>
                         </thead>
                     </table>
@@ -74,7 +74,7 @@
             },
             oLanguage   : {sProcessing: "loading..."},
             order       : [],
-            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list/').$id_user?>", "type": "POST" },
+            ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list_non_tl/').$id_user?>", "type": "POST" },
             //Set column definition initialisation properties.
             "columnDefs": [
                 {

@@ -25,7 +25,7 @@
 <li class="treeview"></li>
 <li>
     <a  href="<?=site_url('aktivitas/laporan')?>">
-        <i class="fa fa-bar-chart"></i> <span>Laporan Pelaksana</span>
+        <i class="fa fa-bar-chart"></i> <span>Laporan Aktivitas</span>
     </a>
 </li>
 

@@ -265,16 +265,19 @@ class User extends CI_Controller {
         {
             $where  =   [
                 UserModel::t_username       => $input[UserModel::t_username],
-                UserModel::t_deleted        => 0,
                 UserModel::t_id_user.' !='  => $input[UserModel::t_id_user]
             ];
             $user   = $this->UserModel->find_view($where);
+			if ($user->num_rows() >= 1) {
+				$error                  = 'Username Sudah Digunakan!';
+				$template               = '<small class="help-block">'.$error.'</small>';
+				$data['inputerror'][]   = UserModel::t_username;
+				$data['notiferror'][]   = $template;
+				$data['status']         = FALSE;
+			}
+			$this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[20]');
         }else{
-            $where  =   [
-                UserModel::t_username   => $input[UserModel::t_username],
-                UserModel::t_deleted    => 0
-            ];
-            $user   = $this->UserModel->find_view($where);
+			$this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[20]|is_unique[user.username]');
         }
 
         //set messages validation for every rule
@@ -282,7 +285,6 @@ class User extends CI_Controller {
         $this->form_validation->set_message('numeric', '{field} Hanya Boleh Berisi Angka {param}!');
 
         //validasi input
-        $this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[20]');
         $this->form_validation->set_rules(UserModel::t_password, ucfirst(UserModel::t_password), 'trim|min_length[8]');
         $this->form_validation->set_rules(UserModel::t_email, ucfirst(UserModel::t_email), 'valid_email');
 
@@ -310,12 +312,6 @@ class User extends CI_Controller {
                 $error                  = form_error(UserModel::t_username,'<small class="help-block">','</small>');
                 $data['inputerror'][]   = UserModel::t_username;
                 $data['notiferror'][]   = $error;
-                $data['status']         = FALSE;
-            }elseif ($user->num_rows() >= 1) {
-                $error                  = 'Username Sudah Digunakan!';
-                $template               = '<small class="help-block">'.$error.'</small>';
-                $data['inputerror'][]   = UserModel::t_username;
-                $data['notiferror'][]   = $template;
                 $data['status']         = FALSE;
             }
 
@@ -392,7 +388,6 @@ class User extends CI_Controller {
         }
     }
 
-
 	public function user_pelaksana()
 	{
 		$data = [
@@ -406,10 +401,18 @@ class User extends CI_Controller {
 
 	public function ajax_list_pelaksana() {
 		header('Content-Type: application/json');
+
 		$where  =   [
 			UserModel::t_deleted 	=> 0,
 			UserModel::v_id_level 	=> 4
 		];
+
+		if($this->role->level()==3){
+			$where  =   [
+				UserModel::v_id_parent_jabatan  => $this->role->jabatan()
+			];
+		}
+
 		$order  =   [
 			'column' => UserModel::t_date_created,
 			'option' => 'desc'
@@ -430,7 +433,6 @@ class User extends CI_Controller {
 			$row[] = '<button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Detail Data Pelaksana" data-original-title="Detail Data Pelaksana" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i> Detail</button>';
 			$data[] = $row;
 		}
-
 		$output = array(
 			"recordsTotal"      => $this->UserModel->find_view()->num_rows(),
 			"recordsFiltered"   => $this->UserModel->find_view()->num_rows(),
