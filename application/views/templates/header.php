@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?=$title.' '.$subtitle?></title>
+
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/login_v14/images/pemkot/edpa.png')?>"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -37,7 +39,8 @@
     <!-- Pace style -->
     <link rel="stylesheet" href="<?=base_url('assets/adminlte/')?>plugins/pace/pace.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="<?=base_url('assets/adminlte/')?>plugins/iCheck/square/blue.css">
+<!--    <link rel="stylesheet" href="/../lapak/assets/adminlte/plugins/iCheck/all.css">-->
+    <link rel="stylesheet" href="<?=base_url('assets/adminlte/')?>plugins/iCheck/all.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="<?=base_url('assets/adminlte/')?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="<?=base_url('assets/adminlte/')?>bower_components/datatables.net-bs/css/buttons.dataTables.min.css">
@@ -97,7 +100,7 @@ $foto = $user->foto ?: 'male-circle-512.png';
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="<?=base_url('assets/adminlte/')?>dist/img/male-circle-512.png" class="img-circle" alt="User Image">
+                                <img src="<?php echo base_url('assets/uploads/foto_profile/').$foto;?>" class="img-circle" alt="User Image">
                                 <p>
                                     <?php
                                     echo $this->role->nama_user_login().' - '.$this->role->nama_level();?>

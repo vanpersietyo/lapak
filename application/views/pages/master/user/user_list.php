@@ -34,15 +34,16 @@
 
             <div class="box-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered sourced-data" id="mytable">
+                    <table class="table table-striped table-bordered sourced-data" id="mytable" style="width: 100%">
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode User</th>
+                            <th>Kode</th>
                             <th>Username</th>
-                            <th>Nama Lengkap</th>
+                            <th>Nama</th>
                             <th>Hak Akses</th>
                             <th>Bagian</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -237,8 +238,8 @@
     function remove(id,kode,name)
     {
         swal({
-            title: 'Delete Data?',
-            html: '<h5>Yakin akan delete user <b>'+kode+' - '+name+'</b>?</h5>',
+            title: 'Nonaktifkan User?',
+            html: '<h5>Yakin akan nonaktifkan user <b>'+kode+' - '+name+'</b>?</h5>',
             type: 'info',
             showCancelButton: true,
             allowOutsideClick: false,
@@ -267,7 +268,48 @@
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
-                        swal("Ya Ampun Maaf !", "Data Gagal Dihapus !", "warning");
+                        swal("Ya Ampun Maaf !", "Data Gagal Dinonaktifkan !", "warning");
+                    }
+                });
+            }
+        })
+    }
+
+    //function untuk delete data
+    function activate(id,kode,name)
+    {
+        swal({
+            title: 'Aktifkan User?',
+            html: '<h5>Yakin akan aktifkan user <b>'+kode+' - '+name+'</b>?</h5>',
+            type: 'info',
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Ya'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url     : "<?php echo site_url('master/user/ajax_activate')?>/"+id,
+                    type    : "POST",
+                    dataType: "JSON",
+                    success : function(data)
+                    {
+                        if(data.status){
+                            reload();
+                            swal({
+                                title   : "Berhasil !",
+                                html    : '<h5>' + data.messages + '</h5>',
+                                type    : 'success'
+                            });
+                        }else{
+                            swal("Gagal!", data.messages, "error");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        swal("Gagal!", "Data Gagal Diaktifkan !", "warning");
                     }
                 });
             }
@@ -433,7 +475,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Email User</label>
+                                            <label class="control-label">Email</label>
                                             <input name="<?php echo UserModel::t_email;?>" placeholder="Email User" class="form-control" type="text">
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_email;?>"></div>
                                         </div>
@@ -441,7 +483,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Telepon User</label>
+                                            <label class="control-label">Telepon</label>
                                             <input name="<?php echo UserModel::t_telp;?>" placeholder="No. Telepon User" class="form-control" type="text">
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_telp;?>"></div>
                                         </div>
@@ -484,7 +526,7 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Periode Kontrak</label>
-                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" placeholder="Periode Kontrak" class="form-control" type="number">
+                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" placeholder="Periode Kontrak" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -530,8 +572,19 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                     <div class="form-group">
-                                        <button type="submit" id="btnSave" class="btn btn-info btn-sm"> Simpan</button>
-                                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Batal</button>
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="form-group">
+                                        <button type="submit" id="btnSave" class="btn btn-info btn-md"> Simpan</button>
+                                        <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Batal</button>
                                     </div>
                                 </div>
                             </div>
@@ -549,8 +602,20 @@
 </div>
 <!-- /.modal -->
 
+<div class="form-group">
+            <label class="control-label">
+                User Aktif
+                <input type="checkbox" class="flat-red">
+            </label>
+        </div>
+
 <script type="application/javascript">
     $( document ).ready(function() {
         $(".select2").select2();
-    });
+
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-blue'
+        })
+    })
 </script>

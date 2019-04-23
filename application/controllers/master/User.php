@@ -39,9 +39,7 @@ class User extends CI_Controller {
 
 	public function ajax_list() {
 		header('Content-Type: application/json');
-		$where  =   [
-		                UserModel::t_deleted => 0
-                    ];
+		$where  =   [];
 		$order  =   [
 		                'column' => UserModel::t_date_created,
                         'option' => 'desc'
@@ -51,19 +49,27 @@ class User extends CI_Controller {
 		/** @var UserModel $d */
 		$no =1 ;
 		foreach ($list as $d) {
+            $status = $d->deleted == 1 ? '<span class="label label-danger">Nonaktif</span>' : '<span class="label label-success">Aktif</span>';
+            $button = $d->deleted == 1 ?
+                '              
+                 <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Reset Password User" data-original-title="Reset Password User" onclick="reset('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-key"></i></button>
+                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data User" data-original-title="Ubah Data User" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i></button>
+                 <button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Aktifkan Data User" data-original-title="Aktifkan Data User" onclick="activate('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-check"></i></button>'
+                :
+                '<button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" title="Reset Password User" data-original-title="Reset Password User" onclick="reset('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-key"></i></button>
+                 <button type="button" class="btn btn-primary btn-sm btn-flat" data-toggle="tooltip" title="Ubah Data User" data-original-title="Ubah Data User" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i></button>
+                 <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" title="Nonaktifkan Data User" data-original-title="Nonaktifkan Data User" onclick="remove('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-ban"></i></button>
+				';
 			$row = array();
 			$row[] = $no++;
 			$row[] = $d->kode_user;
 			$row[] = $d->username;
 			$row[] = $d->nama;
 			$row[] = $d->nama_level;
-			$row[] = $d->nama_jabatan;
+			$row[] = $d->keterangan_jabatan;
+			$row[] = $status;
 			//add html for action
-			$row[] = '
-                <button type="button" class="btn btn-info btn-xs btn-flat" data-toggle="tooltip" title="Reset Password User" data-original-title="Reset Password User" onclick="reset('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-key"></i></button>
-                <button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Ubah Data User" data-original-title="Ubah Data User" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i></button>
-                <button type="button" class="btn btn-danger btn-xs btn-flat" data-toggle="tooltip" title="Hapus Data User" data-original-title="Hapus Data User" onclick="remove('."'".$d->id_user."',"."'".$d->kode_user."',"."'".$d->username."'".')"><i class="fa fa-close"></i></button>
-				';
+			$row[] = $button;
 			$data[] = $row;
 		}
 
@@ -189,12 +195,33 @@ class User extends CI_Controller {
             /** @var UserModel $data */
             echo json_encode([
                 "status"    => TRUE,
-                "messages"  => 'Data User <b>'.$user->kode_user.' - '.$user->username.'</b> Berhasil Dihapus!',
+                "messages"  => 'Data User <b>'.$user->kode_user.' - '.$user->username.'</b> Berhasil Dinonaktifkan!',
             ]);
         }else{
             echo json_encode([
                 "status"    => FALSE,
-                "messages"  => 'Data Karyawan Tidak Berhasil Dihapus!',
+                "messages"  => 'Data Karyawan Tidak Berhasil Dinonaktifkan!',
+            ]);
+        }
+    }
+
+    public function ajax_activate($id)
+    {
+        $user = $this->UserModel->get_by_id($id);
+        if($user){
+            $data = [
+                UserModel::t_deleted => 0
+            ];
+            $this->UserModel->update($id, $data);
+            /** @var UserModel $data */
+            echo json_encode([
+                "status"    => TRUE,
+                "messages"  => 'Data User <b>'.$user->kode_user.' - '.$user->username.'</b> Berhasil Diaktifkan!',
+            ]);
+        }else{
+            echo json_encode([
+                "status"    => FALSE,
+                "messages"  => 'Data Karyawan Tidak Berhasil Diaktifkan!',
             ]);
         }
     }
@@ -234,7 +261,7 @@ class User extends CI_Controller {
         $data['status']         = TRUE;
 
         //Custom Validation
-        if($input['update']=='true')
+        if($input['update'] === 'true')
         {
             $where  =   [
                 UserModel::t_username       => $input[UserModel::t_username],
@@ -339,15 +366,7 @@ class User extends CI_Controller {
 //        $config['max_width']            = 1024;
 //        $config['max_height']           = 768;
         $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload(UserModel::t_foto)) //important!
-        {
-            return false; //associate view variable $error with upload errors
-        }
-        else
-        {
-            return $this->upload->data();
-        }
+        return !$this->upload->do_upload(UserModel::t_foto) ? false : $this->upload->data();
     }
 
     /**
@@ -408,7 +427,7 @@ class User extends CI_Controller {
 			$row[] = $d->nama_level;
 			$row[] = $d->nama_jabatan;
 			//add html for action
-			$row[] = '<button type="button" class="btn btn-success btn-xs btn-flat" data-toggle="tooltip" title="Detail Data Pelaksana" data-original-title="Detail Data Pelaksana" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i> Detail</button>';
+			$row[] = '<button type="button" class="btn btn-success btn-sm btn-flat" data-toggle="tooltip" title="Detail Data Pelaksana" data-original-title="Detail Data Pelaksana" onclick="edit('."'".$d->id_user."'".')"><i class="fa fa-edit"></i> Detail</button>';
 			$data[] = $row;
 		}
 
