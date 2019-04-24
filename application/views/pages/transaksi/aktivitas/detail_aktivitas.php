@@ -65,8 +65,6 @@ if($aktivitas->status_aktivitas==0){
                     </div>
 
 
-
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-6">
@@ -82,12 +80,12 @@ if($aktivitas->status_aktivitas==0){
 
                     <div class="form-group">
                         <label >Nama Aktivitas</label>
-                        <input readonly="readonly" type="text" class="form-control" value="<?php echo $aktivitas->nama_aktivitas;?>">
+                        <textarea class="form-control" disabled="disabled" class="form-control" type="text"  rows="4" cols="70" ><?php echo $aktivitas->nama_aktivitas;?></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="namaPemesan">Keterangan AKtivitas</label>
-                        <textarea class="form-control" disabled="disabled" class="form-control" type="text"  rows="4" cols="50" ><?php echo $aktivitas->keterangan_aktivitas;?></textarea>
+                        <textarea class="form-control" disabled="disabled" class="form-control" type="text"  rows="4" cols="70" ><?php echo $aktivitas->keterangan_aktivitas;?></textarea>
                     </div>
 
                     <div class="form-group">

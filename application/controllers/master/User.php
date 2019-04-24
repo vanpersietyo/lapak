@@ -20,7 +20,7 @@ class User extends CI_Controller {
     {
         parent::__construct();
         if ($this->session->userdata('logged_in')==FALSE){
-            show_404();
+            redirect(site_url('login.php'));
         }
         $this->load->model('UserModel');
         $this->load->model('JabatanModel');
@@ -403,15 +403,9 @@ class User extends CI_Controller {
 		header('Content-Type: application/json');
 
 		$where  =   [
-			UserModel::t_deleted 	=> 0,
+//			UserModel::t_deleted 	=> 0,
 			UserModel::v_id_level 	=> 4
 		];
-
-		if($this->role->level()==3){
-			$where  =   [
-				UserModel::v_id_parent_jabatan  => $this->role->jabatan()
-			];
-		}
 
 		$order  =   [
 			'column' => UserModel::t_date_created,
@@ -452,5 +446,250 @@ class User extends CI_Controller {
 		];
 		$this->load->view('templates/layout', $data);
 	}
+
+	public function update_profile()
+	{
+		$id_user 	= $this->input->post(UserModel::t_id_user);
+		$user 		= $this->UserModel->get_view_by_id($id_user);
+
+		$input  	= [
+			UserModel::t_id_user            =>$this->input->post(UserModel::t_id_user),
+			UserModel::t_username           =>$this->input->post(UserModel::t_username),
+			UserModel::t_password           =>$this->input->post(UserModel::t_password),
+			UserModel::t_nama               =>$this->input->post(UserModel::t_nama),
+			UserModel::t_jenis_kelamin      =>$this->input->post(UserModel::t_jenis_kelamin),
+			UserModel::t_tempat_lahir       =>$this->input->post(UserModel::t_tempat_lahir),
+			UserModel::t_tgl_lahir          =>$this->input->post(UserModel::t_tgl_lahir),
+			UserModel::t_alamat             =>$this->input->post(UserModel::t_alamat),
+			UserModel::t_telp               =>$this->input->post(UserModel::t_telp),
+			UserModel::t_email              =>$this->input->post(UserModel::t_email),
+			UserModel::t_foto               =>$this->upload_foto(),
+		];
+		$this->_validate_profile($input);
+		$data = [
+			UserModel::t_username           =>$input[UserModel::t_username],
+			UserModel::t_nama               =>$input[UserModel::t_nama],
+			UserModel::t_jenis_kelamin      =>$input[UserModel::t_jenis_kelamin],
+			UserModel::t_tempat_lahir       =>$input[UserModel::t_tempat_lahir],
+			UserModel::t_tgl_lahir          =>$input[UserModel::t_tgl_lahir],
+			UserModel::t_alamat             =>$input[UserModel::t_alamat],
+			UserModel::t_telp               =>$input[UserModel::t_telp],
+			UserModel::t_email              =>$input[UserModel::t_email],
+			UserModel::t_foto               =>$input[UserModel::t_foto]['file_name']
+		];
+		$this->UserModel->update($input[UserModel::t_id_user], $data);
+		/** @var UserModel $user */
+		echo json_encode([
+			"status" => TRUE,
+			"messages"  => 'Karyawan <b>'.$user->kode_user.' - '.$data[UserModel::t_username].'</b> Berhasil Diubah!'
+		]);
+	}
+
+	/**
+	 * @param array $input
+	 */
+	private function _validate_profile($input =[])
+	{
+		$this->load->library('form_validation');
+		$data                   = [];
+		$data['error_string']   = array();
+		$data['inputerror']     = array();
+		$data['notiferror']     = array();
+		$data['status']         = TRUE;
+
+		$where  =   [
+			UserModel::t_username       => $input[UserModel::t_username],
+			UserModel::t_id_user.' !='  => $input[UserModel::t_id_user]
+		];
+		$user   = $this->UserModel->find_view($where);
+		if ($user->num_rows() >= 1) {
+			$error                  = 'Username Sudah Digunakan!';
+			$template               = '<small class="help-block">'.$error.'</small>';
+			$data['inputerror'][]   = UserModel::t_username;
+			$data['notiferror'][]   = $template;
+			$data['status']         = FALSE;
+		}
+		$this->form_validation->set_rules(UserModel::t_username, ucfirst(UserModel::t_username), 'trim|alpha_numeric|min_length[5]|max_length[20]');
+
+		//set messages validation for every rule
+		$this->form_validation->set_message('alpha_numeric', '{field} Hanya Boleh Huruf Dan Angka {param}!');
+		$this->form_validation->set_message('numeric', '{field} Hanya Boleh Berisi Angka {param}!');
+
+		//validasi input
+		$this->form_validation->set_rules(UserModel::t_password, ucfirst(UserModel::t_password), 'trim|min_length[8]');
+		$this->form_validation->set_rules(UserModel::t_email, ucfirst(UserModel::t_email), 'valid_email');
+
+		$this->form_validation->set_rules(
+			UserModel::t_telp,
+			'Telepon',
+			'trim|numeric|min_length[11]|max_length[13]',
+			[
+				'max_length' => 'Nomor {field} Maksimal {param} Angka!',
+				'min_length' => 'Nomor {field} Minimal {param} Angka!'
+			]
+		);
+
+		if ($this->form_validation->run() == FALSE){
+
+			if(form_error(UserModel::t_password)){
+				$error                  = form_error(UserModel::t_password,'<small class="help-block">','</small>');
+				$data['inputerror'][]   = UserModel::t_password;
+				$data['notiferror'][]   = $error;
+				$data['status']         = FALSE;
+			}
+
+			if(form_error(UserModel::t_username)){
+				$error                  = form_error(UserModel::t_username,'<small class="help-block">','</small>');
+				$data['inputerror'][]   = UserModel::t_username;
+				$data['notiferror'][]   = $error;
+				$data['status']         = FALSE;
+			}
+
+			//cek untuk kolom email
+			if(form_error(UserModel::t_email)){
+				$error                  = form_error(UserModel::t_email,'<small class="help-block">','</small>');
+				$data['inputerror'][]   = UserModel::t_email;
+				$data['notiferror'][]   = $error;
+				$data['status']         = FALSE;
+			}
+
+			//cek untuk kolom telepom
+			if(form_error(UserModel::t_telp)){
+				$error                  = form_error(UserModel::t_telp,'<small class="help-block">','</small>');
+				$data['inputerror'][]   = UserModel::t_telp;
+				$data['notiferror'][]   = $error;
+				$data['status']         = FALSE;
+			}
+		}
+
+		//vaidasi upload foto
+		if(isset($_FILES['foto']['name'])){
+			if($_FILES['foto']['name'] != '') // validasi jika upload
+			{
+				if(!$this->upload_foto()){
+					if($this->upload->file_size >= 1000){
+						$error = '<span class="help-block">Ukuran Maksimal File = 1 MB</span>';//'Username Sudah Digunakan!';
+						$data['inputerror'][] = UserModel::t_foto;
+						$data['notiferror'][] = $error;
+						$data['status'] = FALSE;
+
+					}else{
+						$error = '<span class="help-block">File Yang Di izinkan : jpeg, png, jpg</span>';//'Username Sudah Digunakan!';
+						$data['inputerror'][] = UserModel::t_foto;
+						$data['notiferror'][] = $error;
+						$data['status'] = FALSE;
+
+					}
+				}
+			}
+		}
+
+
+		if(!$data['status'])
+		{
+			$data['sw_alert'] = FALSE;
+			echo json_encode($data);
+			exit();
+		}
+	}
+
+	public function ubah_password(){
+		$data = [
+			'page'              => 'pages/master/user/ubah_password',
+			'title'             => 'Ubah Password',
+			'subtitle'          => 'User',
+		];
+		$this->load->view('templates/layout', $data);
+	}
+
+	public function ubah_password_go()
+	{
+		$id_user	= $this->role->user_id_yang_login();
+
+		$input  	= [
+			UserModel::t_id_user 	=> $id_user,
+			UserModel::t_password	=> $this->input->post(UserModel::t_password),
+			'password_baru'			=> $this->input->post('password_baru'),
+			'confirm_password'		=> $this->input->post('confirm_password'),
+		];
+
+		$this->_validate_password($input);
+
+		$data = [
+			UserModel::t_password => md5($input['password_baru']),
+		];
+
+		$this->UserModel->update($id_user, $data);
+		echo json_encode([
+			"status" => TRUE,
+			"messages"  => 'Password Berhasil Diubah!'
+		]);
+	}
+
+	/**
+	 * @param array $input
+	 */
+	private function _validate_password($input =[])
+	{
+		$this->load->library('form_validation');
+		$data                   = [];
+		$data['error_string']   = array();
+		$data['inputerror']     = array();
+		$data['notiferror']     = array();
+		$data['status']         = TRUE;
+
+		$where  =   [
+			UserModel::t_id_user 	=> $input[UserModel::t_id_user],
+			UserModel::t_password 	=> md5($input[UserModel::t_password])
+		];
+
+		$user   = $this->UserModel->find_view($where);
+		if ($user->num_rows() == 0) {
+			$error                  = 'Password Sekarang Salah!';
+			$template               = '<small class="help-block">'.$error.'</small>';
+			$data['inputerror'][]   = UserModel::t_password;
+			$data['notiferror'][]   = $template;
+			$data['status']         = FALSE;
+		}
+
+		//validasi input
+		$this->form_validation->set_rules(UserModel::t_password, ucfirst(UserModel::t_password), 'trim|min_length[8]|required|alpha_numeric');
+		$this->form_validation->set_rules('password_baru', 'Password Baru', 'trim|min_length[8]|max_length[15]|required|alpha_numeric');
+		$this->form_validation->set_rules('confirm_password','Confirm Password', 'trim|min_length[8]|max_length[15]|matches[password_baru]|required|alpha_numeric');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			if (form_error(UserModel::t_password))
+			{
+				$error = form_error(UserModel::t_password, '<small class="help-block">', '</small>');
+				$data['inputerror'][] = UserModel::t_password;
+				$data['notiferror'][] = $error;
+				$data['status'] = FALSE;
+			}
+			if (form_error('password_baru'))
+			{
+				$error = form_error('password_baru', '<small class="help-block">', '</small>');
+				$data['inputerror'][] = 'password_baru';
+				$data['notiferror'][] = $error;
+				$data['status'] = FALSE;
+			}
+			if (form_error('confirm_password'))
+			{
+				$error = form_error('confirm_password', '<small class="help-block">', '</small>');
+				$data['inputerror'][] = 'confirm_password';
+				$data['notiferror'][] = $error;
+				$data['status'] = FALSE;
+			}
+
+		}
+
+		if(!$data['status'])
+		{
+			$data['sw_alert'] = FALSE;
+			echo json_encode($data);
+			exit();
+		}
+	}
+
 
 }

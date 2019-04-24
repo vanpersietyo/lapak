@@ -91,6 +91,11 @@
             before_add();
         }
         position = 'add';
+
+        $('#form')[0].reset(); // reset form on modals
+        $('[name=<?php echo AktivitasModel::t_nama_aktivitas;       ?>]').val('');
+        $('[name=<?php echo AktivitasModel::t_pengerjaan_aktivitas; ?>]').val('');
+        $('[name=<?php echo AktivitasModel::t_keterangan_aktivitas; ?>]').val('');
         $('#modal_form').modal('show'); // show bootstrap modal
         $('[name="<?php echo AktivitasModel::t_nama_aktivitas;    ?>"]').focus();
         $('.modal-title').text('Tambah Data Aktivitas'); // Set Title to Bootstrap modal title

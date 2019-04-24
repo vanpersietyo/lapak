@@ -95,12 +95,23 @@
                     foto = "<?php echo base_url('assets/uploads/foto_profile/');?>"+data.<?php echo UserModel::t_foto;?>;
                 }
 
+                let status;
+                if(data.<?php echo UserModel::t_deleted;?> === '0'){
+                    status = 'Aktif';
+                    $('[name=<?php echo UserModel::t_password;?>]').removeClass('has-danger bg-red');
+                    $('[name=<?php echo UserModel::t_password;?>]').addClass('has-success bg-green');
+                }else {
+                    status = 'Nonaktif';
+                    $('[name=<?php echo UserModel::t_password;?>]').removeClass('has-success bg-green');
+                    $('[name=<?php echo UserModel::t_password;?>]').addClass('has-danger bg-red');
+                }
+
                 $('[name=<?php echo UserModel::t_kode_user;         ?>]').val(data.<?php echo UserModel::t_kode_user;           ?>);
                 $('[name=<?php echo UserModel::t_id_user;           ?>]').val(data.<?php echo UserModel::t_id_user;             ?>);
                 $('[name=<?php echo UserModel::t_id_jabatan;        ?>]').val(data.<?php echo UserModel::t_id_jabatan;          ?>).trigger('change');
                 $('[name=<?php echo UserModel::t_username;          ?>]').val(data.<?php echo UserModel::t_username;            ?>);
                 $('[name=<?php echo UserModel::t_nama;              ?>]').val(data.<?php echo UserModel::t_nama;                ?>);
-                $('[name=<?php echo UserModel::t_password;          ?>]').val('xxxxxxxx');
+                $('[name=<?php echo UserModel::t_password;          ?>]').val(status);
                 $('[name=<?php echo UserModel::t_alamat;            ?>]').val(data.<?php echo UserModel::t_alamat;              ?>);
                 $('[name=<?php echo UserModel::t_bagian;            ?>]').val(data.<?php echo UserModel::t_bagian;              ?>);
                 $('[name=<?php echo UserModel::t_tugas;             ?>]').val(data.<?php echo UserModel::t_tugas;               ?>);
@@ -203,7 +214,7 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label for="projectinput2">Password</label>
-                                            <input name="<?php echo UserModel::t_password?>" placeholder="Password Default = Username" class="form-control" type="password"  readonly="readonly">
+                                            <input name="<?php echo UserModel::t_password?>" placeholder="Password Default = Username" class="form-control" type="text"  readonly="readonly">
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_password;?>"></div>
                                         </div>
                                     </div>
@@ -328,13 +339,13 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Alamat</label>
-                                            <textarea name="<?php echo UserModel::t_alamat;?>" placeholder="Alamat" class="form-control"  readonly="readonly"> </textarea>
+                                            <textarea name="<?php echo UserModel::t_alamat;?>" rows="4" cols="70" placeholder="Alamat" class="form-control"  readonly="readonly"> </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Tugas</label>
-                                            <textarea name="<?php echo UserModel::t_tugas;?>" placeholder="Tugas" class="form-control"  readonly="readonly"> </textarea>
+                                            <textarea name="<?php echo UserModel::t_tugas;?>" rows="4" cols="70" placeholder="Tugas" class="form-control"  readonly="readonly"> </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -342,7 +353,7 @@
                                             <label class="control-label">Foto</label>
 <!--                                            <script href="/../../../../../assets/uploads/foto_profile/"></script>-->
                                             <div class="img-responsive">
-                                                <img src="" class="img-circle" name="<?php echo UserModel::t_foto;?>" alt="User Image" height="50px" width="50px">
+                                                <img src="" class="img-circle" name="<?php echo UserModel::t_foto;?>" alt="User Image" height="80px" width="80px">
                                             </div>
                                         </div>
                                     </div>

@@ -364,13 +364,24 @@ class Aktivitas extends CI_Controller {
         }
 
         //vaidasi upload foto
-        if($this->input->post(AktivitasModel::t_file))
-        {
-            $error                  = $this->upload->display_errors('<span class="help-block">','</span>');//'Username Sudah Digunakan!';
-            $data['inputerror'][]   = AktivitasModel::t_file;
-            $data['notiferror'][]   = $error;
-            $data['status']         = FALSE;
-        }
+        if(isset($_FILES['file']['name'])){
+			if($_FILES['file']['name'] != '') // validasi jika upload
+			{
+				if ($_FILES['file']['error'] == 1) // validasi jika upload
+				{
+					$error = '<span class="help-block">Ukuran Maksimal File = 2 MB</span>';//'Username Sudah Digunakan!';
+					$data['inputerror'][] = AktivitasModel::t_file;
+					$data['notiferror'][] = $error;
+					$data['status'] = FALSE;
+				}elseif(!$this->upload()){
+					$error = '<span class="help-block">File Yang Di izinkan : document, excel, gambar, video, text, ppt</span>';//'Username Sudah Digunakan!';
+					$data['inputerror'][] = AktivitasModel::t_file;
+					$data['notiferror'][] = $error;
+					$data['status'] = FALSE;
+				}
+			}
+		}
+
 
         //kirim status validasi error
         if(!$data['status'])
@@ -386,7 +397,7 @@ class Aktivitas extends CI_Controller {
      */
     public function upload(){
         $config['upload_path']          = './assets/uploads/file';
-        $config['allowed_types']        = 'jpeg|gif|jpg|png|pdf|zip|doc|docx|xls|txt|xlsx|ppt|mp4';
+        $config['allowed_types']        = 'jpeg|jpg|png|pdf|zip|doc|docx|xls|txt|xlsx|ppt|mp4';
         $config['max_size']             = 2000; //maksimal 2mb
         $this->load->library('upload', $config);
 
@@ -396,7 +407,6 @@ class Aktivitas extends CI_Controller {
         }
         return $this->upload->data();
     }
-
 
     function cek_user_aktivitas_persetujuan($id_aktivitas = 0){
         $level_login    = $this->role->level();
@@ -509,7 +519,6 @@ class Aktivitas extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
-
 
 	public function aktivitas_non_tl($id_user = null)
 	{
@@ -646,7 +655,6 @@ class Aktivitas extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
-
 
 	public function aktivitas_now($id_user = null)
 	{

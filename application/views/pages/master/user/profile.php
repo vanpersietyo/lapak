@@ -29,31 +29,36 @@
 
                     <fieldset>
                         <form class="form-horizontal" method="post" action="javascript:void(0)" id="form" onsubmit="save()" enctype="multipart/form-data" autocomplete="off">
-                            <input type="hidden" value="" name="update"/>
-                            <input type="hidden" value="" name="<?php echo UserModel::t_id_user; ?>"/>
+                            <input type="hidden" value="<?php echo $user->id_user;?>" name="<?php echo UserModel::t_id_user; ?>"/>
 
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label for="projectinput2">Kode User</label>
-                                            <input name="<?php echo UserModel::t_kode_user?>" class="form-control" type="text" placeholder="Akan Tergenerate Otomatis" readonly="readonly">
+                                            <input name="<?php echo UserModel::t_kode_user?>" class="form-control" type="text" value="<?php echo $user->kode_user;?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label for="projectinput2">Username</label>
-                                            <input name="<?php echo UserModel::t_username?>" placeholder="Masukkan Username" class="form-control" type="text" autofocus="autofocus" required="required">
+                                            <input name="<?php echo UserModel::t_username?>" placeholder="Masukkan Username" value="<?php echo $user->username;?>"  class="form-control" type="text" autofocus="autofocus" required="required">
                                             <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_username;?>"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label for="projectinput2">Password</label>
-                                            <input name="<?php echo UserModel::t_password?>" placeholder="Password Default = Username" class="form-control" type="password">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_password;?>"></div>
+                                            <div class="input-group input-group">
+                                                <input name="<?php echo UserModel::t_password?>" placeholder="Password Default = Username" class="form-control" type="password">
+                                                <span class="input-group-btn">
+                                                <a href="<?php echo site_url('ubah_password.php')?>" type="button" class="btn btn-info btn-flat">Ubah Password</a>
+                                                </span>
+                                            </div>
+<!--                                            <div class="--><?php //echo 'NOTIF_ERROR_'.UserModel::t_password;?><!--"></div>-->
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -61,15 +66,8 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label for="projectinput2">Nama Lengkap</label>
-                                            <input name="<?php echo UserModel::t_nama?>" placeholder="Masukkan Nama Lengkap" class="form-control" type="text" required="required">
-                                            <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_nama;?>"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-body">
                                             <label class="control-label">Bagian</label>
-                                            <select data-live-search-placeholder="Pilih Bagian" class="selectpicker form-control" name="<?php echo UserModel::t_id_jabatan;?>" data-show-subtext="true" data-live-search="true" required="required" onchange="get_hak_akses()">
+                                            <select data-live-search-placeholder="Pilih Bagian" class="form-control" name="<?php echo UserModel::t_id_jabatan;?>" data-show-subtext="true" data-live-search="true" disabled="disabled" onchange="get_hak_akses()">
                                                 <option value=""> -- Pilih Bagian-- </option>
 												<?php
 												/** @var JabatanModel $list_jabatan */
@@ -85,19 +83,27 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label for="namaPemesan">Hak Akses</label>
-                                            <input name="<?php echo JabatanModel::v_nama_level?>" placeholder=" - " class="form-control" type="text" readonly="readonly">
+                                            <input name="<?php echo JabatanModel::v_nama_level?>" placeholder=" - " class="form-control" type="text" readonly="readonly" disabled="disabled">
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-body">
+                                            <label class="control-label">Jabatan</label>
+                                            <input name="<?php echo UserModel::t_bagian;?>" class="form-control" type="text" disabled="disabled">
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="row">
-
                                     <div class="col-md-4">
                                         <div class="form-body">
-                                            <label class="control-label">Jabatan</label>
-                                            <input name="<?php echo UserModel::t_bagian;?>" placeholder="Jabatan User" class="form-control" type="text">
+                                            <label for="projectinput2">Nama Lengkap</label>
+                                            <input name="<?php echo UserModel::t_nama?>" placeholder="Masukkan Nama Lengkap" class="form-control" type="text" required="required">
+                                            <div class="<?php echo 'NOTIF_ERROR_'.UserModel::t_nama;?>"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -153,19 +159,19 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Periode Kontrak</label>
-                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" placeholder="Periode Kontrak" class="form-control" type="number">
+                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" class="form-control" type="number" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Tanggal Awal Kontrak</label>
-                                            <input name="<?php echo UserModel::t_tgl_awal_kontrak;?>" placeholder="Tanggal Awal Kontrak" class="form-control" type="date">
+                                            <input name="<?php echo UserModel::t_tgl_awal_kontrak;?>"  class="form-control" type="date" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Tanggal Akhir Kontrak</label>
-                                            <input name="<?php echo UserModel::t_tgl_akhir_kontrak;?>" placeholder="Tanggal Akhir Kontrak" class="form-control" type="date">
+                                            <input name="<?php echo UserModel::t_tgl_akhir_kontrak;?>"  class="form-control" type="date" disabled="disabled">
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +188,7 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Tugas</label>
-                                            <textarea name="<?php echo UserModel::t_tugas;?>" placeholder="Tugas" class="form-control"> </textarea>
+                                            <textarea name="<?php echo UserModel::t_tugas;?>" placeholder="Tugas" class="form-control" disabled="disabled"> </textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -217,11 +223,7 @@
     <!--  end  -->
 </div>
 
-
 <script type="text/javascript">
-    $(document).ready(function() {
-        edit(<?php echo $user->id_user;?>)
-    });
 
     function edit(id)
     {
@@ -243,6 +245,7 @@
                 $('[name=<?php echo UserModel::t_password;          ?>]').val('xxxxxxxx');
                 $('[name=<?php echo UserModel::t_password;          ?>]').attr('readonly','readonly');
                 $('[name=<?php echo UserModel::t_alamat;            ?>]').val(data.<?php echo UserModel::t_alamat;              ?>);
+                $('[name=<?php echo UserModel::t_telp;              ?>]').val(data.<?php echo UserModel::t_telp;              ?>);
                 $('[name=<?php echo UserModel::t_bagian;            ?>]').val(data.<?php echo UserModel::t_bagian;              ?>);
                 $('[name=<?php echo UserModel::t_tugas;             ?>]').val(data.<?php echo UserModel::t_tugas;               ?>);
                 $('[name=<?php echo UserModel::t_periode_kontrak;   ?>]').val(data.<?php echo UserModel::t_periode_kontrak;     ?>);
@@ -289,7 +292,7 @@
         // ajax adding data to database
         let formData = new FormData($('#form')[0]);
         $.ajax({
-            url         : "<?php echo site_url('master/user/ajax_do')?>",
+            url         : "<?php echo site_url('master/user/update_profile')?>",
             type        : "POST",
             data        : formData,
             contentType : false,
@@ -305,6 +308,7 @@
                         html: '<h5>' + data.messages + '</h5>',
                         type: 'success'
                     });
+                    edit(<?php echo $user->id_user;?>)
                 }
                 else
                 {
@@ -410,5 +414,6 @@
 <script type="application/javascript">
     $( document ).ready(function() {
         $(".select2").select2();
+        edit(<?php echo $user->id_user;?>)
     });
 </script>

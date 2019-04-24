@@ -8,7 +8,7 @@
 /** @var CI_Controller $this */
 $pelaksana  = $this->UserModel->find_view([
 	UserModel::v_id_level   => 4,
-	UserModel::t_deleted    => 0
+//	UserModel::t_deleted    => 0
 ])->num_rows();
 $user       = $this->UserModel->find_view([
 	UserModel::t_deleted    => 0

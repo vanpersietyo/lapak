@@ -17,14 +17,10 @@ $route['forgot.do']         = 'login/proses_forgot_password';
 $route['reset/(:any)']      = 'login/reset_password/$1';
 $route['reset.do']          = 'login/proses_reset_password';
 
-//User
-$route['dashboard']         = 'dashboard/index';
+
 $route['profile.php']       = 'master/user/profile';
-$route['ubah_profile.php']  = 'user/ubah_profile';
-$route['ubah_profile.do']   = 'user/proses_ubah_profile';
-$route['ubah_password.do']  = 'user/proses_ubah_password';
-
-
+$route['ubah_password.php'] = 'master/user/ubah_password';
+$route['login.php']        	= 'login';
 $route['logout.php']        = 'login/logout';
 
 //Master

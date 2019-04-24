@@ -91,6 +91,10 @@
             before_add();
         }
         position = 'add';
+        $('#form')[0].reset(); // reset form on modals
+        $('[name=<?php echo AktivitasModel::t_nama_aktivitas;       ?>]').val('');
+        $('[name=<?php echo AktivitasModel::t_pengerjaan_aktivitas; ?>]').val('');
+        $('[name=<?php echo AktivitasModel::t_keterangan_aktivitas; ?>]').val('');
         $('#modal_form').modal('show'); // show bootstrap modal
         $('[name="<?php echo AktivitasModel::t_nama_aktivitas;    ?>"]').focus();
         $('.modal-title').text('Tambah Data User'); // Set Title to Bootstrap modal title
@@ -381,11 +385,6 @@
                 }
             }else if (result.dismiss === swal.DismissReason.cancel)
             {
-                // swal({
-                //     title: "Batal Menolak!",
-                //     html: '<h5>Anda Batal Menolak!</h5>',
-                //     type: 'error'
-                // });
             }else{
                 swal({
                     title: 'Gagal Menolak',
@@ -479,7 +478,7 @@
                                     <div class="col-md-6">
                                         <div class="form-body">
                                             <label class="control-label">File</label>
-                                            <input type="file" name="<?php echo AktivitasModel::t_file;?>">
+                                            <input type="file" name="<?php echo AktivitasModel::t_file;?>" value="<?php echo AktivitasModel::t_file;?>">
                                             <div class="<?php echo 'NOTIF_ERROR_'.AktivitasModel::t_file;?>"></div>
                                         </div>
                                     </div>

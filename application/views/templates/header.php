@@ -66,7 +66,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="<?=base_url('assets/adminlte/')?>index2.html" class="logo">
+        <a href="<?=site_url('dashboard')?>" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>LPK</b></span>
             <!-- logo for regular state and mobile devices -->
