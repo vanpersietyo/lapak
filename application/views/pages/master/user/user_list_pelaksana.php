@@ -116,6 +116,7 @@
                 $('[name=<?php echo UserModel::t_bagian;            ?>]').val(data.<?php echo UserModel::t_bagian;              ?>);
                 $('[name=<?php echo UserModel::t_tugas;             ?>]').val(data.<?php echo UserModel::t_tugas;               ?>);
                 $('[name=<?php echo UserModel::t_periode_kontrak;   ?>]').val(data.<?php echo UserModel::t_periode_kontrak;     ?>);
+                $('[name=<?php echo UserModel::t_telp;   ?>]').val(data.<?php echo UserModel::t_telp;     ?>);
                 $('[name=<?php echo UserModel::t_tgl_awal_kontrak;  ?>]').val(data.<?php echo UserModel::t_tgl_awal_kontrak;    ?>);
                 $('[name=<?php echo UserModel::t_tgl_akhir_kontrak; ?>]').val(data.<?php echo UserModel::t_tgl_akhir_kontrak;   ?>);
                 $('[name=<?php echo UserModel::t_tempat_lahir;      ?>]').val(data.<?php echo UserModel::t_tempat_lahir;        ?>);
@@ -316,7 +317,7 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Periode Kontrak</label>
-                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" placeholder="Periode Kontrak" class="form-control" type="number" readonly="readonly">
+                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" placeholder="Periode Kontrak" class="form-control" type="text" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="col-md-4">

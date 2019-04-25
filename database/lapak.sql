@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 21 Apr 2019 pada 19.08
+-- Waktu pembuatan: 25 Apr 2019 pada 04.11
 -- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.2.17
+-- Versi PHP: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,27 +48,14 @@ CREATE TABLE `aktivitas` (
 --
 
 INSERT INTO `aktivitas` (`id_aktivitas`, `id_user`, `kode_aktivitas`, `tgl_aktivitas`, `nama_aktivitas`, `keterangan_aktivitas`, `pengerjaan_aktivitas`, `status_aktivitas`, `file`, `deleted`, `date_created`, `date_modified`) VALUES
-(9, 32, 'AKTVS20190421001', '2019-04-21', 'ngoding jaya', 'ini ngoding\r\n ', 0, 0, NULL, 0, '2019-04-21 06:09:16', '0000-00-00 00:00:00'),
-(10, 32, 'AKTVS20190421002', '2019-04-21', 'tes 2', 'asasd ', 0, 2, NULL, 0, '2019-04-21 07:20:23', '2019-04-21 07:21:01'),
-(11, 32, 'AKTVS20190421003', '2019-04-21', 'tes 3', ' asasdas\r\n', 0, 1, NULL, 0, '2019-04-21 07:20:36', '2019-04-21 07:20:55'),
-(12, 33, 'AKTVS20190421004', '2019-04-21', 'iki punya staf dn', 'tes ', 0, 0, NULL, 0, '2019-04-21 07:41:28', '0000-00-00 00:00:00'),
-(13, 33, 'AKTVS20190421005', '2019-04-21', 'pelraasdad 2', ' 3', 0, 2, NULL, 0, '2019-04-21 07:41:41', '2019-04-21 07:56:53'),
-(14, 33, 'AKTVS20190421006', '2019-04-21', '3adasdaasd', ' 23234', 0, 1, NULL, 0, '2019-04-21 07:41:50', '2019-04-21 07:56:49'),
-(15, 34, 'AKTVS20190421007', '2019-04-21', 'staf_ln_1', ' asdasdasd', 0, 0, NULL, 0, '2019-04-21 07:53:21', '0000-00-00 00:00:00'),
-(16, 34, 'AKTVS20190421008', '2019-04-21', 'staf_ln_2', ' asdasd', 0, 2, NULL, 0, '2019-04-21 07:53:28', '2019-04-21 07:57:19'),
-(17, 34, 'AKTVS20190421009', '2019-04-21', 'staf_ln_3', ' asdasdasd', 0, 1, NULL, 0, '2019-04-21 07:53:34', '2019-04-21 07:57:12'),
-(18, 33, 'AKTVS20190421010', '2019-04-21', 'tesss', ' asdadsa', 0, 0, '0', 0, '2019-04-21 08:32:17', '0000-00-00 00:00:00'),
-(19, 33, 'AKTVS20190421011', '2019-04-21', 'asdasd', ' ', 0, 0, NULL, 0, '2019-04-21 08:52:27', '0000-00-00 00:00:00'),
-(20, 33, 'AKTVS20190421012', '2019-04-21', 'asdasdas', ' asdasd', 1, 0, '{\"file_name\":\"dutakom.docx\",\"file_type\":\"application\\/vnd.openxmlformats-officedocument.wordprocessingml.document\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/dutakom.docx\",\"raw_name\":\"dutakom\",\"orig_name\":\"dutakom.docx\",\"client_name\":\"dutakom.docx\",\"file_ext\":\".docx\",\"file_size\":15.8900000000000005684341886080801486968994140625,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-21 08:59:17', '2019-04-21 15:59:22'),
-(21, 33, 'AKTVS20190421013', '2019-04-21', 'tes update', ' ', 0, 0, '{\"file_name\":\"4_Komponen-IMK.pdf\",\"file_type\":\"application\\/pdf\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/4_Komponen-IMK.pdf\",\"raw_name\":\"4_Komponen-IMK\",\"orig_name\":\"4_Komponen-IMK.pdf\",\"client_name\":\"4_Komponen-IMK.pdf\",\"file_ext\":\".pdf\",\"file_size\":574.0700000000000500222085975110530853271484375,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-21 09:00:45', '2019-04-21 15:20:19'),
-(22, 33, 'AKTVS20190421014', '2019-04-21', 'Menambahkan data user baru', 'saya melakukan ini karena terpaksa\r\n ', 0, 0, '{\"file_name\":\"1.pdf\",\"file_type\":\"application\\/pdf\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/1.pdf\",\"raw_name\":\"1\",\"orig_name\":\"1.pdf\",\"client_name\":\"1.pdf\",\"file_ext\":\".pdf\",\"file_size\":932.8400000000000318323145620524883270263671875,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-21 15:29:53', '2019-04-21 15:36:40'),
-(23, 33, 'AKTVS20190421015', '2019-04-21', 'zxczxczxczx', ' czzxczxczxc', 0, 0, '{\"file_name\":\"11.pdf\",\"file_type\":\"application\\/pdf\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/11.pdf\",\"raw_name\":\"11\",\"orig_name\":\"1.pdf\",\"client_name\":\"1.pdf\",\"file_ext\":\".pdf\",\"file_size\":932.8400000000000318323145620524883270263671875,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-21 15:51:55', '2019-04-21 15:54:44'),
-(24, 33, 'AKTVS20190421016', '2019-04-21', 'ki isi ne ktp', 'tes ', 0, 0, '0', 0, '2019-04-21 15:55:13', '0000-00-00 00:00:00'),
-(25, 33, 'AKTVS20190421017', '2019-04-21', 'asdasdasdasd', ' asdasdasdasd', 0, 0, '{\"file_name\":\"Telkom.png\",\"file_type\":\"image\\/png\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/Telkom.png\",\"raw_name\":\"Telkom\",\"orig_name\":\"Telkom.png\",\"client_name\":\"Telkom.png\",\"file_ext\":\".png\",\"file_size\":784.44000000000005456968210637569427490234375,\"is_image\":true,\"image_width\":1349,\"image_height\":2635,\"image_type\":\"png\",\"image_size_str\":\"width=\\\"1349\\\" height=\\\"2635\\\"\"}', 0, '2019-04-21 15:57:05', '0000-00-00 00:00:00'),
-(26, 33, 'AKTVS20190421018', '2019-04-21', 'sdasdasda', ' asdadsadasd', 0, 0, NULL, 0, '2019-04-21 16:12:31', '0000-00-00 00:00:00'),
-(27, 33, 'AKTVS20190421019', '2019-04-21', 'tanihub', ' asdasdadsaaedaedadaeadae', 0, 0, NULL, 0, '2019-04-21 16:13:27', '2019-04-21 16:19:27'),
-(28, 33, 'AKTVS20190421020', '2019-04-21', 'mimimmi', ' ', 0, 0, '{\"file_name\":\"DBL.docx\",\"file_type\":\"application\\/vnd.openxmlformats-officedocument.wordprocessingml.document\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/DBL.docx\",\"raw_name\":\"DBL\",\"orig_name\":\"DBL.docx\",\"client_name\":\"DBL.docx\",\"file_ext\":\".docx\",\"file_size\":30.8599999999999994315658113919198513031005859375,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-21 16:14:50', '2019-04-21 16:16:38'),
-(29, 33, 'AKTVS20190421021', '2019-04-21', 'zxczxcz', ' zxczcx', 0, 0, '{\"file_name\":\"CV.png\",\"file_type\":\"image\\/png\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/CV.png\",\"raw_name\":\"CV\",\"orig_name\":\"CV.png\",\"client_name\":\"CV.png\",\"file_ext\":\".png\",\"file_size\":661.6499999999999772626324556767940521240234375,\"is_image\":true,\"image_width\":1317,\"image_height\":2151,\"image_type\":\"png\",\"image_size_str\":\"width=\\\"1317\\\" height=\\\"2151\\\"\"}', 0, '2019-04-21 16:23:19', '2019-04-21 16:29:21');
+(31, 6, 'AKTVS20190422001', '2019-04-15', 'Rapat Rekomendasi Roadmap 2019', ' ', 0, 0, '', 1, '2019-04-22 08:10:54', '2019-04-22 08:22:42'),
+(32, 6, 'AKTVS20190422002', '2019-04-22', 'Persiapan Administrasi Apeksi', ' ', 1, 1, '{\"file_name\":\"20190227_PP_49_Tahun_2018_Manajemen_PPPK.pdf\",\"file_type\":\"application\\/pdf\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/20190227_PP_49_Tahun_2018_Manajemen_PPPK.pdf\",\"raw_name\":\"20190227_PP_49_Tahun_2018_Manajemen_PPPK\",\"orig_name\":\"20190227_PP_49_Tahun_2018_Manajemen_PPPK.pdf\",\"client_name\":\"20190227 PP 49 Tahun 2018 Manajemen PPPK.pdf\",\"file_ext\":\".pdf\",\"file_size\":1305.3699999999998908606357872486114501953125,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-22 08:16:22', '2019-04-22 08:23:59'),
+(33, 6, 'AKTVS20190422003', '2019-04-22', 'Rapat', ' ', 0, 2, '{\"file_name\":\"Jadwal_Rakor_Komwil_Update_18_Maret_2019.doc\",\"file_type\":\"application\\/msword\",\"file_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/\",\"full_path\":\"\\/opt\\/lampp\\/htdocs\\/project\\/lapak\\/assets\\/uploads\\/file\\/Jadwal_Rakor_Komwil_Update_18_Maret_2019.doc\",\"raw_name\":\"Jadwal_Rakor_Komwil_Update_18_Maret_2019\",\"orig_name\":\"Jadwal_Rakor_Komwil_Update_18_Maret_2019.doc\",\"client_name\":\"Jadwal Rakor Komwil Update 18 Maret 2019.doc\",\"file_ext\":\".doc\",\"file_size\":1310,\"is_image\":false,\"image_width\":null,\"image_height\":null,\"image_type\":\"\",\"image_size_str\":\"\"}', 0, '2019-04-22 08:18:15', '2019-04-22 08:24:22'),
+(34, 6, 'AKTVS20190422004', '2019-04-22', 'Sosialisasi', ' ', 0, 1, '', 0, '2019-04-22 09:23:36', '2019-04-24 03:54:34'),
+(35, 12, 'AKTVS20190422005', '2019-04-22', 'Rapat', ' ', 0, 1, '', 0, '2019-04-22 10:16:07', '2019-04-24 02:03:31'),
+(36, 6, 'AKTVS20190424001', '2019-04-24', ' Rapat inventarisasi Aplikasi', ' ', 0, 0, '', 0, '2019-04-24 02:52:13', '0000-00-00 00:00:00'),
+(37, 6, 'AKTVS20190424002', '2019-04-24', 'Rapat', ' ', 0, 0, '', 0, '2019-04-24 02:53:25', '0000-00-00 00:00:00'),
+(38, 6, 'AKTVS20190424003', '2019-04-24', ' Rapat', ' ', 0, 0, '', 1, '2019-04-24 03:51:02', '2019-04-24 03:52:51');
 
 -- --------------------------------------------------------
 
@@ -135,10 +122,10 @@ CREATE TABLE `level` (
 --
 
 INSERT INTO `level` (`id_level`, `kode_level`, `nama_level`, `keterangan`, `deleted`, `date_created`, `date_modified`) VALUES
-(1, 'LVL0001', 'ROOT', 'akses penuh', 0, '2019-04-18 07:29:19', '0000-00-00 00:00:00'),
-(2, 'LVL0002', 'KABAG', 'Kepala Bagian', 0, '2019-04-18 07:29:30', '0000-00-00 00:00:00'),
-(3, 'LVL0003', 'KASUBAG', 'Kepala Sub Bagian', 0, '2019-04-18 07:29:46', '0000-00-00 00:00:00'),
-(4, 'LVL0004', 'PELAKSANA', 'PELAKSANA AKTIVITAS', 0, '2019-04-18 07:30:15', '0000-00-00 00:00:00');
+(1, 'LVL0001', 'ROOT', 'akses penuh', 0, '2019-04-18 00:29:19', '0000-00-00 00:00:00'),
+(2, 'LVL0002', 'KABAG', 'Kepala Bagian', 0, '2019-04-18 00:29:30', '0000-00-00 00:00:00'),
+(3, 'LVL0003', 'KASUBAG', 'Kepala Sub Bagian', 0, '2019-04-18 00:29:46', '0000-00-00 00:00:00'),
+(4, 'LVL0004', 'PELAKSANA', 'PELAKSANA AKTIVITAS', 0, '2019-04-18 00:30:15', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -160,12 +147,10 @@ CREATE TABLE `persetujuan` (
 --
 
 INSERT INTO `persetujuan` (`id_persetujuan`, `id_user`, `id_aktivitas`, `jenis_persetujuan`, `alasan`, `tgl_persetujuan`) VALUES
-(1, 31, 11, 1, 'setuju', '2019-04-21 07:20:55'),
-(2, 31, 10, 0, 'saya tolak', '2019-04-21 07:21:01'),
-(3, 35, 14, 1, 'setuju', '2019-04-21 07:56:49'),
-(4, 35, 13, 0, 'tolak', '2019-04-21 07:56:53'),
-(5, 36, 17, 1, 'setuja', '2019-04-21 07:57:12'),
-(6, 36, 16, 0, 'saya tolak', '2019-04-21 07:57:19');
+(9, 3, 32, 1, NULL, '2019-04-22 08:23:59'),
+(10, 3, 33, 0, 'tidak relevan', '2019-04-22 08:24:22'),
+(11, 5, 35, 1, 'bagus', '2019-04-24 02:03:31'),
+(12, 3, 34, 1, NULL, '2019-04-24 03:54:34');
 
 -- --------------------------------------------------------
 
@@ -186,8 +171,8 @@ CREATE TABLE `user` (
   `alamat` text,
   `telp` varchar(15) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `bagian` int(50) DEFAULT NULL,
-  `periode_kontrak` int(11) DEFAULT NULL COMMENT 'bulan',
+  `bagian` varchar(50) DEFAULT NULL,
+  `periode_kontrak` varchar(50) DEFAULT NULL COMMENT 'bulan',
   `tgl_awal_kontrak` date DEFAULT NULL,
   `tgl_akhir_kontrak` date DEFAULT NULL,
   `tugas` text,
@@ -202,14 +187,19 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `id_jabatan`, `kode_user`, `username`, `password`, `nama`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `alamat`, `telp`, `email`, `bagian`, `periode_kontrak`, `tgl_awal_kontrak`, `tgl_akhir_kontrak`, `tugas`, `foto`, `deleted`, `date_created`, `date_modified`) VALUES
-(26, 1, 'USR003', 'root', '63a9f0ea7bb98050796b649e85481845', 'Adhitya Dwi Prasetyo', 'L', 'KABUPATEN SIDOARJO', '1994-06-28', 'Jalan Mayjen Bambang Yuwono No 201\r\nDusun Suwaluh Utara RT 03 RW 01\r\nDesa Suwaluh', '', 'barcelonitas.adhyt@gmail.com', 0, 1, '2019-01-01', '2019-06-30', 'mengelola aplikasi\r\n', NULL, 0, '2019-04-18 07:30:41', '2019-04-21 06:00:29'),
-(30, 2, 'USR004', 'kabag', '8ddcff3a80f4189ca1c9d4d902c3c909', 'kabag', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 06:05:11', '0000-00-00 00:00:00'),
-(31, 5, 'USR005', 'kasubagpe', '8ddcff3a80f4189ca1c9d4d902c3c909', 'ibu tina', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 06:07:05', '0000-00-00 00:00:00'),
-(32, 8, 'USR006', 'staffpe', '8ddcff3a80f4189ca1c9d4d902c3c909', 'staff pe', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 06:07:30', '0000-00-00 00:00:00'),
-(33, 6, 'USR007', 'staffdn', '8ddcff3a80f4189ca1c9d4d902c3c909', 'staffdn', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 07:37:55', '0000-00-00 00:00:00'),
-(34, 7, 'USR008', 'staffln', '8ddcff3a80f4189ca1c9d4d902c3c909', 'staffln', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 07:38:33', '0000-00-00 00:00:00'),
-(35, 3, 'USR009', 'kasubagdn', '8ddcff3a80f4189ca1c9d4d902c3c909', 'kasubagdn', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 07:38:57', '0000-00-00 00:00:00'),
-(36, 4, 'USR010', 'kasubagln', '8ddcff3a80f4189ca1c9d4d902c3c909', 'kasubagln', '', '', '0000-00-00', ' ', '', '', 0, 0, '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-21 07:39:14', '0000-00-00 00:00:00');
+(1, 1, 'USR001', 'mayakerjasama', '8ddcff3a80f4189ca1c9d4d902c3c909', 'ROOT', 'P', '', '0000-00-00', ' ', '', '', '0', '0', '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-22 02:09:16', '2019-04-22 07:48:46'),
+(2, 2, 'USR002', 'kabagkerjasama', '25d55ad283aa400af464c76d713c07ad', 'Dra. DEWI WAHYU WARDANI, M.Si.', 'P', '', '0000-00-00', ' ', '', '', '0', '0', '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-22 07:34:35', '0000-00-00 00:00:00'),
+(3, 5, 'USR003', 'kasubagpe', '25d55ad283aa400af464c76d713c07ad', 'TIENA WAHJUNINGSIH PRIBADI, S.H., ', 'P', '', '0000-00-00', ' ', '', '', '0', '0', '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-22 07:35:22', '0000-00-00 00:00:00'),
+(4, 4, 'USR004', 'kasubagln', '25d55ad283aa400af464c76d713c07ad', 'FARAH ANDITA RAMDHANI, S.Hum.', 'P', '', '0000-00-00', ' ', '', '', '0', '0', '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-22 07:36:23', '0000-00-00 00:00:00'),
+(5, 3, 'USR005', 'kasubagdn', '25d55ad283aa400af464c76d713c07ad', 'kasubagdn', '', '', '0000-00-00', ' ', '', '', '0', '0', '0000-00-00', '0000-00-00', ' ', NULL, 0, '2019-04-22 07:37:04', '0000-00-00 00:00:00'),
+(6, 8, 'USR006', 'maya1234', 'cd3b1199e806bf65a0baba2e57adfcf0', 'Yurika Mayasari', 'P', 'Surabaya', '1994-03-29', ' Bentul II No. 7 Surabaya', '085732022863', 'yurikamayasari@gmail.com', 'Tenaga Admin Aplikasi 2', '8 Bulan', '2019-03-01', '2019-12-31', ' 1. Mengelola SIM Aplikasi Kerjasama;\r\n2. Mengelola website Bagian Administrasi Kerjasama;\r\n3. Mengakomodasi kebutuhan database terkait pelaksanaan tugas Bagian Administrasi Kerjasama;\r\n4. Membantu penyusunan Laporan Kinerja, LPPD, LKPJ dan Laporan Hasil Pelaksanaan Kerjasama di Bagian Administrasi Kerjasama;', NULL, 0, '2019-04-22 07:56:54', '2019-04-24 10:15:24'),
+(7, 8, 'USR007', 'taofik1234', '73c3a4c6f5f30e2ed0142be7db53813e', 'Taofik', 'L', '', '1973-03-16', ' Jl. Manukan Lor I / 7 Surabaya', '081331100606', '', 'Tenaga Administrasi 3', '1 Tahun', '2019-01-02', '2019-12-31', ' 1. Melaksanakan tugas-tugas administrasi yang terkait dengan kerjasama daerah;\r\n2. Membantu melakukan perawatan komputer, printer, mobil operasional, instalasi dan peralatan lainnya sebagai penunjang operasional kantor;\r\n3. Membantu pengurusan ijin- ijin perjalanan dinas luar negeri;\r\n4. Sebagai pembantu umum;\r\n5. Membantu mengentri data barang persediaan;\r\n6. Membantu mencatat dan menghitung keluar/masuk barang inventaris;', NULL, 0, '2019-04-22 09:54:27', '2019-04-24 08:58:07'),
+(8, 7, 'USR008', 'farid1234', 'acc0b7857abb226eaf7a347c477033ce', 'M. Husni Faried', 'L', '', '1990-03-16', ' Manyar Sabrangan 8-B/44-B Surabaya', '081335138230', '', 'Tenaga Teknis 2', '1 Tahun', '2019-01-02', '2019-12-31', ' 1. Membuat desain website, souvenir, buku profil, buku laporan, seragam dan logo- logo event di Bagian Administrasi Kerjasama ;\r\n2. Membuat Guide Book perjalanan dinas luar negeri;\r\n3. Membuat laporan kerjasama dan perjalanan dinas luar negeri;\r\n4. Mengentri data delegasi perjalanan dinas luar negeri;\r\n5. Membantu pendampingan tamu dari luar negeri;\r\n6. Bertanggung jawab atas ketersediaan data PNS terkait kebutuhan administrasi perjalanan dinas luar negeri;', NULL, 0, '2019-04-22 09:56:58', '2019-04-24 09:01:36'),
+(9, 7, 'USR009', 'dina1234', '9b37a3ea07415a3421941a3110053b6b', 'Dina Hadfina Mulyani', 'P', '', '1992-11-08', ' Jl. Wiguna Timur VII / 3 Surabaya', '081259225961', '', 'Tenaga Teknis 2', '1 Tahun', '2019-01-02', '2019-12-31', ' 1. Membantu menyiapkan bahan-bahan yang terkait dengan kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n2. Membantu pembuatan dokumen kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n3. Membantu menyusun petunjuk teknis pelaksanaan kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n4. Melaksanakan tugas-tugas administrasi yang terkait dengan kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n5. Sebagai penerjemah pada acara kunjungan tamu dari luar negeri;\r\n6. Membantu komunikasi dengan mitra kerjasama di luar negeri;\r\n7. Membantu pengurusan visa dan ijin- ijin perjalanan dinas luar negeri;', NULL, 0, '2019-04-22 09:57:57', '2019-04-24 09:02:47'),
+(10, 7, 'USR010', 'vita1234', '09d68704be7ddb9f3553478bcc985231', 'Cavita Ezra Martina', 'P', '', '1996-08-23', ' Jl. Kalibutuh 136 Surabaya', '081221812027', '', 'Tenaga Administrasi 3', '0', '2019-01-02', '2019-12-31', ' 1. Mengentri data delegasi perjalanan dinas luar negeri;\r\n2. Membantu pendampingan tamu dari luar negeri;\r\n3. Membantu menyiapkan bahan- bahan yang terkait dengan kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n4. Melaksanakan tugas- tugas administrasi yang terkait dengan kerjasama daerah dengan mitra kerjasama di luar negeri;\r\n5. Sebagai penerjemah pada acara kunjungan tamu dari luar negeri;', NULL, 0, '2019-04-22 09:58:35', '2019-04-24 09:04:18'),
+(11, 6, 'USR011', 'tanti1234', 'cba6613105bc233155c55d7012970d18', 'Tanti Mei Wulan Cahyani', 'P', '', '1986-05-18', ' Tambak Segaran 5 / 18 Surabaya', '085645270018', '', 'Tenaga Teknis 2', '1 Tahun', '2019-01-02', '2019-12-31', ' 1. Membantu menyiapkan bahan-bahan yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n2. Membantu pembuatan dokumen kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n3. Membantu koordinasi dengan Perangkat Daerah terkait;\r\n4. Melaksanakan tugas-tugas administrasi yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n5. Membantu komunikasi dengan mitra kerjasama di dalam negeri;', NULL, 0, '2019-04-22 09:59:39', '2019-04-24 07:55:38'),
+(12, 6, 'USR012', 'mirza1234', '876b530c2fe4088ce30e8deb16623839', 'Mirza Nindya P', 'P', '', '1994-10-05', 'Darma Rakyat II No. 9 Surabaya', '085730957353', '', 'Tenaga Teknis 2', '2 Bulan', '2019-03-01', '2019-04-30', ' 1. Membantu menyiapkan bahan-bahan yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n\r\n2. Membantu pembuatan dokumen kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n\r\n3. Membantu koordinasi dengan Perangkat Daerah terkait;\r\n\r\n4. Melaksanakan tugas-tugas administrasi yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n\r\n5. Membantu komunikasi dengan mitra kerjasama di dalam negeri;', NULL, 0, '2019-04-22 10:00:53', '2019-04-24 09:07:52'),
+(13, 6, 'USR013', 'lina1234', 'b795f72d7bdce788197af463a822580f', 'Maurent Naulina', 'P', '', '1996-03-16', ' Jl. Pucangan 9/17 Surabaya', '085331612467', '', 'Tenaga Teknis 2', '1 Tahun', '2019-01-02', '2019-12-31', ' 1. Membantu menyiapkan bahan-bahan yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n2. Membantu pembuatan dokumen kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n3. Membantu koordinasi dengan Perangkat Daerah terkait;\r\n4. Melaksanakan tugas-tugas administrasi yang terkait dengan kerjasama daerah dengan mitra kerjasama di dalam negeri;\r\n5. Membantu komunikasi dengan mitra kerjasama di dalam negeri;', NULL, 0, '2019-04-23 01:23:35', '2019-04-24 09:09:39');
 
 -- --------------------------------------------------------
 
@@ -242,8 +232,8 @@ CREATE TABLE `v_aktivitas` (
 ,`alamat` text
 ,`telp` varchar(15)
 ,`email` varchar(50)
-,`bagian` int(50)
-,`periode_kontrak` int(11)
+,`bagian` varchar(50)
+,`periode_kontrak` varchar(50)
 ,`tgl_awal_kontrak` date
 ,`tgl_akhir_kontrak` date
 ,`tugas` text
@@ -316,8 +306,8 @@ CREATE TABLE `v_user` (
 ,`alamat` text
 ,`telp` varchar(15)
 ,`email` varchar(50)
-,`bagian` int(50)
-,`periode_kontrak` int(11)
+,`bagian` varchar(50)
+,`periode_kontrak` varchar(50)
 ,`tgl_awal_kontrak` date
 ,`tgl_akhir_kontrak` date
 ,`tugas` text
@@ -427,7 +417,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `aktivitas`
 --
 ALTER TABLE `aktivitas`
-  MODIFY `id_aktivitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_aktivitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
@@ -445,13 +435,13 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT untuk tabel `persetujuan`
 --
 ALTER TABLE `persetujuan`
-  MODIFY `id_persetujuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_persetujuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

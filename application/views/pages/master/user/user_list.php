@@ -126,6 +126,7 @@
                 $('[name=<?php echo UserModel::t_alamat;            ?>]').val(data.<?php echo UserModel::t_alamat;              ?>);
                 $('[name=<?php echo UserModel::t_bagian;            ?>]').val(data.<?php echo UserModel::t_bagian;              ?>);
                 $('[name=<?php echo UserModel::t_tugas;             ?>]').val(data.<?php echo UserModel::t_tugas;               ?>);
+                $('[name=<?php echo UserModel::t_telp;             ?>]').val(data.<?php echo UserModel::t_telp;               ?>);
                 $('[name=<?php echo UserModel::t_periode_kontrak;   ?>]').val(data.<?php echo UserModel::t_periode_kontrak;     ?>);
                 $('[name=<?php echo UserModel::t_tgl_awal_kontrak;  ?>]').val(data.<?php echo UserModel::t_tgl_awal_kontrak;    ?>);
                 $('[name=<?php echo UserModel::t_tgl_akhir_kontrak; ?>]').val(data.<?php echo UserModel::t_tgl_akhir_kontrak;   ?>);

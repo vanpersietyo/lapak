@@ -159,7 +159,7 @@
                                     <div class="col-md-4">
                                         <div class="form-body">
                                             <label class="control-label">Periode Kontrak</label>
-                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" class="form-control" type="number" disabled="disabled">
+                                            <input name="<?php echo UserModel::t_periode_kontrak;?>" class="form-control" type="text" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
