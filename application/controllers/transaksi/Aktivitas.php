@@ -460,6 +460,9 @@ class Aktivitas extends CI_Controller {
 		$this->load->view('templates/layout', $data);
 	}
 
+	/**
+	 * @param null $id_user
+	 */
 	public function ajax_list_laporan($id_user = null) {
 		header('Content-Type: application/json');
 
@@ -497,6 +500,15 @@ class Aktivitas extends CI_Controller {
 			/** @var AktivitasModel $json */
 			$lampiran = $json ? '<a href="'.base_url().'assets/uploads/file/'.$json->file_name.'" download>'.$json->file_name.'</a>' : ' - ';
 
+			$keterangan = $this->PersetujuanModel->find([PersetujuanModel::t_id_aktivitas => $d->id_aktivitas]);
+			if($keterangan->num_rows() == 0 ){
+				$alasan = '-';
+			}else{
+				$keterangan = $keterangan->row();
+				/** @var PersetujuanModel $keterangan */
+				$alasan = $keterangan->alasan;
+			}
+
 			$row[] = $no++;
 			$row[] = $d->kode_aktivitas;
 			$row[] = Conversion::hariIndo($d->tgl_aktivitas).', '.Conversion::dateIndo($d->tgl_aktivitas,1);
@@ -505,6 +517,7 @@ class Aktivitas extends CI_Controller {
 			$row[] = $d->keterangan_jabatan;
 			$row[] = $lampiran;
 			$row[] = $status;
+			$row[] = $alasan;
 			//		No, Kode, Hari/Tanggal, Nama Aktivitas, Nama Pelaksana, Sub Bagian, File Lampiran, Status, Detail
 			//add html for action
 			$row[] = '<a href="'.site_url('transaksi/aktivitas/detail/').$d->id_aktivitas.'" type="button" class="btn btn-info btn-sm btn-flat" data-toggle="tooltip" title="Lihat Data Aktivitas" data-original-title="Lihat Data Aktivitas"><i class="fa fa-share-square"></i> Detail</a>';
@@ -791,6 +804,5 @@ class Aktivitas extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
-
 
 }

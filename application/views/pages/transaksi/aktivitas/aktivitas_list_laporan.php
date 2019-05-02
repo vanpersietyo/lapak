@@ -40,6 +40,7 @@
                                 <th style="width: 15%">Sub Bagian</th>
                                 <th style="width: 15%">Lampiran</th>
                                 <th style="width: 10%">Status</th>
+                                <th style="width: 10%">Ketrangan Persetujuan / Penolakan</th>
                                 <th style="width: 10%">Detail</th>
                             </tr>
                         </thead>
@@ -69,11 +70,39 @@
             oLanguage   : {sProcessing: "loading..."},
             order       : [],
             ajax        : { "url": "<?php echo site_url('transaksi/aktivitas/ajax_list_laporan/').$id_user?>", "type": "POST" },
-            //Set column definition initialisation properties.
-            "columnDefs": [
+            dom: 'Bfrtip',
+            search  : {
+                regex : false
+            },
+            buttons : [
                 {
-                    "targets": [ -1 ], //last column
-                    "orderable": false //set not orderable
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5 ]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [ 0, 1, 2,3,4,5,6,7,8]
+                    }
+                },
+                'print'//,'colvis','pdf'
+            ],
+            columnDefs: [
+                {
+                    targets     : [ -1 ], //last column
+                    orderable   : false, //set not orderable
+                    // visible     : false
+                },
+                {
+                    targets     : [ -2 ], //last column
+                    // orderable   : false, //set not orderable
+                    visible     : false
+                },
+                {
+                    targets     : [ 6 ],
+                    searchable  : false
                 }
             ]
         });

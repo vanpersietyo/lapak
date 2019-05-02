@@ -78,5 +78,11 @@ class Testing extends CI_Controller {
 
 	}
 
+	public function tes_get(){
+		$from 	= $this->input->get('from');
+		$to 	= $this->input->get('to');
+
+		echo $from.' - '.$to;
+	}
 
 }
